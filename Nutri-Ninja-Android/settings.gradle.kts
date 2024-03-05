@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "NutriNinja"
 include(":app")
+ 

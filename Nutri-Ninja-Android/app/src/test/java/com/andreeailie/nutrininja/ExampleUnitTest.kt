@@ -1,4 +1,4 @@
-package com.example.nutrininja
+package com.andreeailie.nutrininja
 
 import org.junit.Test
 

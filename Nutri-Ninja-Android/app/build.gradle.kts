@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.nutrininja"
+    namespace = "com.andreeailie.nutrininja"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.nutrininja"
+        applicationId = "com.andreeailie.nutrininja"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -23,21 +23,24 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_20
+        targetCompatibility = JavaVersion.VERSION_20
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "20"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {
