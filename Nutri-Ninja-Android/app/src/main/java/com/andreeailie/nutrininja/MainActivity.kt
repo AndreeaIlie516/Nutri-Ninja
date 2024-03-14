@@ -10,8 +10,10 @@ import androidx.navigation.compose.rememberNavController
 import com.andreeailie.core.navigation.Route
 import com.andreeailie.nutrininja.navigation.navigate
 import com.andreeailie.nutrininja.ui.theme.NutriNinjaTheme
+import com.andreeailie.onboarding_presentation.activity.ActivityScreen
 import com.andreeailie.onboarding_presentation.age.AgeScreen
 import com.andreeailie.onboarding_presentation.gender.GenderScreen
+import com.andreeailie.onboarding_presentation.goal.GoalScreen
 import com.andreeailie.onboarding_presentation.height.HeightScreen
 import com.andreeailie.onboarding_presentation.weight.WeightScreen
 import com.andreeailie.onboarding_presentation.welcome.WelcomeScreen
@@ -57,12 +59,11 @@ class MainActivity : ComponentActivity() {
 
                     }
                     composable(Route.ACTIVITY) {
-
+                        ActivityScreen(onNavigate = navController::navigate)
                     }
                     composable(Route.GOAL) {
-
+                        GoalScreen(onNavigate = navController::navigate)
                     }
-
                     composable(Route.TRACKER_OVERVIEW) {
 
                     }
