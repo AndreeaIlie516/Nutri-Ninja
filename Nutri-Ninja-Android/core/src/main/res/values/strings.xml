@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NutriNinja</string>
+    <string name="welcome_message">Welcome to NutriNinja!</string>
+    <string name="lets_go">Let\'s go</string>
+</resources>

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.andreeailie.onboarding_presentation"
+    namespace = "com.andreeailie.core_ui"
     compileSdk = 34
 
     defaultConfig {
@@ -41,8 +41,6 @@ android {
 
 dependencies {
 
-    implementation(project(":onboarding:onboarding_domain"))
-    implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -67,7 +65,6 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation(project(":core-ui"))
 
     "kapt"("com.google.dagger:hilt-android-compiler:2.49")
     "kapt"("androidx.hilt:hilt-compiler:1.2.0")
