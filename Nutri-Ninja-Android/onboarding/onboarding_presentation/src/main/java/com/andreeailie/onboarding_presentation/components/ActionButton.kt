@@ -14,6 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.andreeailie.core.R
 import com.andreeailie.core_ui.LocalSpacing
+import com.andreeailie.nutrininja.ui.theme.BrightGreen
 
 @Composable
 fun ActionButton(
@@ -29,7 +30,7 @@ fun ActionButton(
         enabled = isEnabled,
         shape = RoundedCornerShape(100.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = colorResource(id = R.color.button_dark_green)
+            containerColor = BrightGreen
         )
     ) {
         Text(
