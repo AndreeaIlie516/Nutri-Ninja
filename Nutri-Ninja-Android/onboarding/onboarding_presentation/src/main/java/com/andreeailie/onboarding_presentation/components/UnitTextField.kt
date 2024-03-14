@@ -16,6 +16,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import com.andreeailie.core_ui.LocalSpacing
+import com.andreeailie.nutrininja.ui.theme.BrightGreen
+import com.andreeailie.nutrininja.ui.theme.DarkGreen
 
 @Composable
 fun UnitTextField(
@@ -24,7 +26,7 @@ fun UnitTextField(
     unit: String,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle(
-        color = MaterialTheme.colorScheme.secondary,
+        color = DarkGreen,
         fontSize = 70.sp
     ),
 ) {
