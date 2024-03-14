@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.andreeailie.core.navigation.Route
 import com.andreeailie.nutrininja.navigation.navigate
 import com.andreeailie.nutrininja.ui.theme.NutriNinjaTheme
+import com.andreeailie.onboarding_presentation.gender.GenderScreen
 import com.andreeailie.onboarding_presentation.welcome.WelcomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
 
                     }
                     composable(Route.GENDER) {
-
+                        GenderScreen(onNavigate = navController::navigate)
                     }
                     composable(Route.HEIGHT) {
 
