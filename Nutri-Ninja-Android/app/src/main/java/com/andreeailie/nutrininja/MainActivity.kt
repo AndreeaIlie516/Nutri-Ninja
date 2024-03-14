@@ -10,7 +10,9 @@ import com.andreeailie.core.navigation.Route
 import com.andreeailie.nutrininja.navigation.navigate
 import com.andreeailie.nutrininja.ui.theme.NutriNinjaTheme
 import com.andreeailie.onboarding_presentation.welcome.WelcomeScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
