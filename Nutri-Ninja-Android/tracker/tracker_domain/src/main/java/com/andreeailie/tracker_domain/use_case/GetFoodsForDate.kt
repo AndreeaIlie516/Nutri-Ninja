@@ -9,7 +9,7 @@ class GetFoodsForDate(
     private val repository: TrackerRepository
 ) {
 
-    fun invoke (date: LocalDate): Flow<List<TrackedFood>> {
+    operator fun invoke (date: LocalDate): Flow<List<TrackedFood>> {
         return repository.getFoodsForDate(date)
     }
 }
