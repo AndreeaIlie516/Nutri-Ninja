@@ -1,5 +1,6 @@
-package com.andreeailie.onboarding_domain.use_case
+package com.andreeailie.onboarding_domain.di
 
+import com.andreeailie.onboarding_domain.use_case.ValidateNutrients
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
