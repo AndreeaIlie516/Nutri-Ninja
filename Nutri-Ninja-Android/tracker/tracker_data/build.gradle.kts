@@ -26,11 +26,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_20
-        targetCompatibility = JavaVersion.VERSION_20
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "20"
+        jvmTarget = "17"
     }
 }
 
@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.okhttp.logging.interceptor)
 
     implementation(libs.hilt.android)
+    implementation(project(":tracker:tracker_domain"))
     "kapt"(libs.hilt.android.compiler)
     "kapt"(libs.androidx.hilt.compiler)
     implementation(libs.androidx.room.runtime)
