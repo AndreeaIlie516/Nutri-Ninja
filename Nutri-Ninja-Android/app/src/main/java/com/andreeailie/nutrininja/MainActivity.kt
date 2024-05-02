@@ -1,6 +1,7 @@
 package com.andreeailie.nutrininja
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.rememberScaffoldState
@@ -10,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.andreeailie.core.domain.preferences.Preferences
 import com.andreeailie.core.navigation.Route
 import com.andreeailie.nutrininja.navigation.navigate
 import com.andreeailie.nutrininja.ui.theme.NutriNinjaTheme
@@ -24,19 +26,27 @@ import com.andreeailie.onboarding_presentation.welcome.WelcomeScreen
 import com.andreeailie.tracker_presentation.search.SearchScreen
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var preferences: Preferences
+
     @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val shouldShowOnboarding = preferences.loadShouldShowOnboarding()
         setContent {
             NutriNinjaTheme {
                 val navController = rememberNavController()
                 val scaffoldState = rememberScaffoldState()
                 NavHost(
                     navController = navController,
-                    startDestination = Route.WELCOME
+                    startDestination = if(shouldShowOnboarding) {
+                        Route.WELCOME
+                    } else Route.TRACKER_OVERVIEW
                 ) {
                     composable(Route.WELCOME) {
                         WelcomeScreen(onNavigate = navController::navigate)
@@ -95,7 +105,7 @@ class MainActivity : ComponentActivity() {
                     )
                     ) {
                         val mealName = it.arguments?.getString("mealName")!!
-                        val dayOfMonth =  it.arguments?.getInt("dayOofMonth")!!
+                        val dayOfMonth =  it.arguments?.getInt("dayOfMonth")!!
                         val month =  it.arguments?.getInt("month")!!
                         val year =  it.arguments?.getInt("year")!!
                         SearchScreen(
