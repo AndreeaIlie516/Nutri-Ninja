@@ -19,22 +19,22 @@ data class Meal(
 val defaultMeals = listOf(
     Meal(
         name = UiText.StringResource(R.string.breakfast),
-        drawableRes = R.drawable.ic_breakfast,
+        drawableRes = R.drawable.ic_breakfast_cute,
         mealType = MealType.Breakfast
     ),
     Meal(
         name = UiText.StringResource(R.string.lunch),
-        drawableRes = R.drawable.ic_lunch,
+        drawableRes = R.drawable.ic_lunch_cute,
         mealType = MealType.Lunch
     ),
     Meal(
         name = UiText.StringResource(R.string.dinner),
-        drawableRes = R.drawable.ic_dinner,
+        drawableRes = R.drawable.ic_dinner_cute,
         mealType = MealType.Dinner
     ),
     Meal(
         name = UiText.StringResource(R.string.snacks),
-        drawableRes = R.drawable.ic_snack,
+        drawableRes = R.drawable.ic_snack_cute,
         mealType = MealType.Snack
     ),
 )

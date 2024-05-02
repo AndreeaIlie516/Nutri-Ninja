@@ -13,6 +13,7 @@
     <string name="error_age_cant_be_empty">The age can\'t be empty</string>
     <string name="error_height_cant_be_empty">The height can\'t be empty</string>
     <string name="error_weight_cant_be_empty">The weight can\'t be empty</string>
+    <string name="calories">Calories</string>
     <string name="kcal">kcal</string>
     <string name="carbs">Carbs</string>
     <string name="protein">Protein</string>
@@ -23,7 +24,7 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="nutrient_info">%dg • %dkcal</string>
     <string name="amount_info">%dg</string>
-    <string name="grams">g</string>
+    <string name="grams">gms</string>
     <string name="extend">Extend</string>
     <string name="collapse">Collapse</string>
     <string name="breakfast">Breakfast</string>

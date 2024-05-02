@@ -11,6 +11,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import com.andreeailie.core_ui.DarkGray
+import com.andreeailie.core_ui.LightGray
 
 @Composable
 fun NutrientInfo(
@@ -19,9 +21,9 @@ fun NutrientInfo(
     unit: String,
     modifier: Modifier = Modifier,
     amountTextSize: TextUnit = 20.sp,
-    amountColor: Color = MaterialTheme.colorScheme.onBackground,
+    amountColor: Color = DarkGray,
     unitTextSize: TextUnit = 14.sp,
-    unitColor: Color = MaterialTheme.colorScheme.onBackground,
+    unitColor: Color = LightGray,
     nameTextStyle: TextStyle = MaterialTheme.typography.bodySmall
 ) {
     Column(
@@ -38,9 +40,10 @@ fun NutrientInfo(
         )
         Text(
             text = name,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = DarkGray,
             style = nameTextStyle,
-            fontWeight = FontWeight.Light
+            fontWeight = FontWeight.Bold,
+            fontSize = 14.sp
         )
     }
 }
