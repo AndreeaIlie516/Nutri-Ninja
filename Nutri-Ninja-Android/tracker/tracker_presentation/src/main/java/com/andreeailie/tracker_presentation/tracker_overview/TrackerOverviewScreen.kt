@@ -1,6 +1,7 @@
 package com.andreeailie.tracker_presentation.tracker_overview
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -35,6 +36,7 @@ fun TrackerOverviewScreen(
 ) {
     val spacing = LocalSpacing.current
     val state = viewModel.state
+    Log.d("TrackerOverviewScreen", "trackedFoods: ${state.trackedFoods}")
     val context = LocalContext.current
     LaunchedEffect(key1 = context) {
         viewModel.uiEvent.collect { event ->
@@ -78,7 +80,9 @@ fun TrackerOverviewScreen(
                             .fillMaxWidth()
                             .padding(horizontal = spacing.spaceSmall)
                     ) {
-                        state.trackedFoods.forEach { food ->
+                        state.trackedFoods
+                            .filter { it.mealType == meal.mealType }
+                            .forEach { food ->
                             TrackedFoodItem(
                                 trackedFood = food,
                                 onDeleteClick = {
