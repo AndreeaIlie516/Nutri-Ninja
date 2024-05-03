@@ -25,7 +25,6 @@ fun NutrientsBox(
         verticalArrangement = Arrangement.SpaceAround,
         modifier = modifier
             .fillMaxWidth()
-            //.background(colorResource(id = R.color.background_light_green))
             .padding(
                 start = spacing.spaceExtraSmall,
                 end = spacing.spaceExtraSmall,
