@@ -12,23 +12,45 @@ class TrackFood(
 ) {
 
     suspend operator fun invoke(
-        food: TrackableFood,
-        amount: Int,
+        foodName: String,
+        quantity: Int = 100,
+        unit: String = "g",
         mealType: MealType,
         date: LocalDate
     ) {
-        repository.insertTrackedFood(
+        var trackedFood: TrackableFood? = null
+
+        val result: Result<TrackableFood?> = repository.getNutrients(
+            foodName = foodName,
+            quantity = quantity,
+            unit = unit
+        )
+
+        result.onSuccess { trackableFood ->
+            trackedFood = trackableFood
+
+        }.onFailure {
+
+        }
+        trackedFood?.let {
             TrackedFood(
-                name = food.name,
-                carbs = ((food.carbsPer100g / 100f) * amount).roundToInt(),
-                protein = ((food.proteinPer100g / 100f) * amount).roundToInt(),
-                fat = ((food.fatPer100g / 100f) * amount).roundToInt(),
-                calories = ((food.caloriesPer100g / 100f) * amount).roundToInt(),
-                imageUrl = food.imageUrl,
+                name = foodName,
+                isBranded = it.isBranded,
+                brandName = it.brandName,
+                imageUrl = it.imageUrl,
+                unit = it.unit,
+                calories = it.calories,
+                carbs = it.carbs,
+                protein = it.protein,
+                fat = it.fat,
                 mealType = mealType,
-                amount = amount,
+                quantity = quantity,
                 date = date,
             )
-        )
+        }?.let {
+            repository.insertTrackedFood(
+                it
+            )
+        }
     }
 }

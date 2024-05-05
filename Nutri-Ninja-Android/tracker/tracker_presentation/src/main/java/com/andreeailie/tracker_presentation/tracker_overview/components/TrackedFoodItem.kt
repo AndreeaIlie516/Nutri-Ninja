@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.andreeailie.core_ui.LocalSpacing
 import com.andreeailie.tracker_domain.model.TrackedFood
@@ -95,7 +94,7 @@ fun TrackedFoodItem(
             Text(
                 text = stringResource(
                     id = R.string.nutrient_info,
-                    trackedFood.amount,
+                    trackedFood.quantity,
                     trackedFood.calories
                 ),
                 style = MaterialTheme.typography.bodyMedium

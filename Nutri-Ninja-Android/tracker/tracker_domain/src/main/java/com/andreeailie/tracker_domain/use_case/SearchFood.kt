@@ -1,5 +1,6 @@
 package com.andreeailie.tracker_domain.use_case
 
+import android.util.Log
 import com.andreeailie.tracker_domain.model.TrackableFood
 import com.andreeailie.tracker_domain.repository.TrackerRepository
 
@@ -8,13 +9,14 @@ class SearchFood(
 ) {
 
     suspend operator  fun invoke(
-        query: String,
-        page: Int = 1,
-        pageSize: Int = 40
+        query: String
     ): Result<List<TrackableFood>> {
         if(query.isBlank()) {
             return Result.success(emptyList())
         }
-        return repository.searchFood(query.trim(), page, pageSize)
+        Log.d("SearchFood", "Query is not blank")
+        val result = repository.searchFood(query.trim())
+        Log.d("SearchFood", "result: $result")
+        return result
     }
 }

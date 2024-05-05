@@ -6,15 +6,18 @@ import androidx.room.PrimaryKey
 @Entity
 data class TrackedFoodEntity(
     val name: String,
+    val isBranded: Boolean,
+    val brandName: String?,
+    val imageUrl: String?,
+    val unit: String,
+    val calories: Int,
     val carbs: Int,
     val protein: Int,
     val fat: Int,
-    val imageUrl: String?,
     val type: String,
-    val amount: Int,
+    val quantity: Int,
     val dayOfMonth: Int,
     val month: Int,
     val year: Int,
-    val calories: Int,
     @PrimaryKey val id: Int? = null
 )

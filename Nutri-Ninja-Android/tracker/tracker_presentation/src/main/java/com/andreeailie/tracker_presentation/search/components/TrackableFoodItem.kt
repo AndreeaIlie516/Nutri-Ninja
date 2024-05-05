@@ -100,7 +100,7 @@ fun TrackableFoodItem(
                     Text(
                         text = stringResource(
                             id = R.string.kcal_per_100g,
-                            food.caloriesPer100g
+                            food.calories
                         ),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -109,7 +109,7 @@ fun TrackableFoodItem(
             Row {
                 NutrientInfo(
                     name = stringResource(id = R.string.carbs),
-                    amount = food.carbsPer100g,
+                    amount = food.carbs,
                     unit = stringResource(id = R.string.grams),
                     amountTextSize = 16.sp,
                     unitTextSize = 12.sp,
@@ -118,7 +118,7 @@ fun TrackableFoodItem(
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))
                 NutrientInfo(
                     name = stringResource(id = R.string.protein),
-                    amount = food.proteinPer100g,
+                    amount = food.protein,
                     unit = stringResource(id = R.string.grams),
                     amountTextSize = 16.sp,
                     unitTextSize = 12.sp,
@@ -127,7 +127,7 @@ fun TrackableFoodItem(
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))
                 NutrientInfo(
                     name = stringResource(id = R.string.fat),
-                    amount = food.fatPer100g,
+                    amount = food.fat,
                     unit = stringResource(id = R.string.grams),
                     amountTextSize = 16.sp,
                     unitTextSize = 12.sp,

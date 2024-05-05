@@ -11,12 +11,15 @@ import java.time.LocalDate
 fun TrackedFoodEntity.toTrackedFood(): TrackedFood {
     return TrackedFood(
         name = name,
+        isBranded = isBranded,
+        brandName = brandName,
         carbs = carbs,
         protein = protein,
         fat = fat,
         imageUrl = imageUrl,
         mealType = MealType.fromString(type),
-        amount = amount,
+        quantity = quantity,
+        unit = unit,
         date = LocalDate.of(year, month, dayOfMonth),
         calories = calories,
         id = id
@@ -27,12 +30,15 @@ fun TrackedFoodEntity.toTrackedFood(): TrackedFood {
 fun TrackedFood.toTrackedFoodEntity(): TrackedFoodEntity {
     return TrackedFoodEntity(
         name = name,
+        isBranded = isBranded,
+        brandName = brandName,
         carbs = carbs,
         protein = protein,
         fat = fat,
         imageUrl = imageUrl,
         type = mealType.name,
-        amount = amount,
+        quantity = quantity,
+        unit = unit,
         dayOfMonth = date.dayOfMonth,
         month = date.monthValue,
         year = date.year,

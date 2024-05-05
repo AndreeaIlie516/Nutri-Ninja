@@ -4,13 +4,16 @@ import java.time.LocalDate
 
 data class TrackedFood(
     val name: String,
+    val isBranded: Boolean,
+    val brandName: String?,
+    val imageUrl: String?,
+    val unit: String,
+    val calories: Int,
     val carbs: Int,
     val protein: Int,
     val fat: Int,
-    val imageUrl: String?,
     val mealType: MealType,
-    val amount: Int,
+    val quantity: Int,
     val date: LocalDate,
-    val calories: Int,
     val id: Int? = null
 )

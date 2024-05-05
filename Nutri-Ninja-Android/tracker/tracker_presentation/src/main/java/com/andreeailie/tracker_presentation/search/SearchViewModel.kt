@@ -1,5 +1,6 @@
 package com.andreeailie.tracker_presentation.search
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -31,6 +32,7 @@ class SearchViewModel @Inject constructor(
     fun onEvent(event: SearchEvent) {
         when(event) {
             is SearchEvent.OnQueryChange -> {
+                Log.d("SearchViewModel", "OnQueryChange")
                 state = state.copy(query = event.query)
             }
             is SearchEvent.OnAmountForFoodChange -> {
@@ -43,6 +45,7 @@ class SearchViewModel @Inject constructor(
                 )
             }
             is SearchEvent.OnSearch -> {
+                Log.d("SearchViewModel", "OnSearch")
                 executeSearch()
             }
             is SearchEvent.OnToggleTrackableFood -> {
@@ -55,6 +58,7 @@ class SearchViewModel @Inject constructor(
                 )
             }
             is SearchEvent.OnSearchFocusChange -> {
+                Log.d("SearchViewModel", "OnSearchFocusChange")
                 state = state.copy(
                     isHintVisible = !event.isFocused && state.query.isBlank()
                 )
@@ -71,9 +75,12 @@ class SearchViewModel @Inject constructor(
                 isSearching = true,
                 trackableFood = emptyList()
             )
+            Log.d("SearchViewModel", "searchFood called")
+            Log.d("SearchViewModel", "query: ${state.query}")
             trackerUseCases
                 .searchFood(state.query)
                 .onSuccess { foods ->
+                    Log.d("SearchViewModel", "foods: $foods")
                     state = state.copy(
                         trackableFood = foods.map {
                             TrackableFoodUiState(it)
@@ -81,6 +88,8 @@ class SearchViewModel @Inject constructor(
                         isSearching = false,
                         query = ""
                     )
+                    Log.d("SearchViewModel", "searchFood on success")
+                    Log.d("SearchViewModel", "state: $state")
                 }
                 .onFailure {
                     state = state.copy(isSearching = false)
@@ -89,6 +98,7 @@ class SearchViewModel @Inject constructor(
                             UiText.StringResource(R.string.error_something_went_wrong)
                         )
                     )
+                    Log.d("SearchViewModel", "searchFood on failure")
                 }
         }
     }
@@ -97,8 +107,10 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             val uiState = state.trackableFood.find { it.food == event.food }
             trackerUseCases.trackFood(
-                food = uiState?.food ?: return@launch,
-                amount = uiState.amount.toIntOrNull() ?: return@launch,
+                foodName =  uiState?.food?.name ?: return@launch,
+                quantity = uiState.amount.toIntOrNull() ?: return@launch,
+                //TODO: add unit
+                //unit = uiState.
                 mealType = event.mealType,
                 date = event.date
             )

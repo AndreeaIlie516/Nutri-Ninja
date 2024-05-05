@@ -3,6 +3,7 @@ package com.andreeailie.tracker_data.di
 import android.app.Application
 import androidx.room.Room
 import com.andreeailie.tracker_data.local.TrackerDatabase
+import com.andreeailie.tracker_data.remote.CustomFoodApi
 import com.andreeailie.tracker_data.remote.OpenFoodApi
 import com.andreeailie.tracker_data.repository.TrackerRepositoryImpl
 import com.andreeailie.tracker_domain.repository.TrackerRepository
@@ -15,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -25,6 +27,9 @@ object TrackerDataModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .connectTimeout(300, TimeUnit.SECONDS)
+            .readTimeout(300, TimeUnit.SECONDS)
+            .writeTimeout(300, TimeUnit.SECONDS)
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
@@ -33,16 +38,29 @@ object TrackerDataModule {
             .build()
     }
 
+//    @Provides
+//    @Singleton
+//    fun provideOpenFoodApi(client: OkHttpClient): OpenFoodApi {
+//        return Retrofit.Builder()
+//            .baseUrl(OpenFoodApi.BASE_URL)
+//            .addConverterFactory(MoshiConverterFactory.create())
+//            .client(client)
+//            .build()
+//            .create()
+//    }
+
     @Provides
     @Singleton
-    fun provideOpenFoodApi(client: OkHttpClient): OpenFoodApi {
+    fun provideCustomFoodApi(client: OkHttpClient): CustomFoodApi {
         return Retrofit.Builder()
-            .baseUrl(OpenFoodApi.BASE_URL)
+            .baseUrl(CustomFoodApi.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
             .create()
     }
+
+
 
     @Provides
     @Singleton
@@ -57,7 +75,7 @@ object TrackerDataModule {
     @Provides
     @Singleton
     fun provideTrackerRepository(
-        api: OpenFoodApi,
+        api: CustomFoodApi,
         db: TrackerDatabase
     ): TrackerRepository {
         return TrackerRepositoryImpl(

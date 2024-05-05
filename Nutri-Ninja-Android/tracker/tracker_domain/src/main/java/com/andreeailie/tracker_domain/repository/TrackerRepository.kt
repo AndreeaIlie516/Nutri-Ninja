@@ -9,9 +9,13 @@ interface TrackerRepository {
 
     suspend fun searchFood(
         query: String,
-        page: Int,
-        pageSize: Int
     ): Result<List<TrackableFood>>
+
+    suspend fun getNutrients(
+        foodName: String,
+        quantity: Int,
+        unit: String
+    ): Result<TrackableFood?>
 
     suspend fun insertTrackedFood(food: TrackedFood)
 
