@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.andreeailie.core_ui.LocalSpacing
 import com.andreeailie.core.R
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.res.painterResource
 import com.andreeailie.core_ui.*
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState
 
@@ -48,6 +49,7 @@ fun NutrientsBox(
                 unit = stringResource(id = R.string.kcal),
                 color = CaloriesColor,
                 backgroundColor = CaloriesColorBackground,
+                iconResource = painterResource(id = R.drawable.ic_calories_cute_transp),
                 modifier = Modifier.size(190.dp)
             )
             NutrientBarInfo(
@@ -57,6 +59,7 @@ fun NutrientsBox(
                 unit = stringResource(id = R.string.grams),
                 color = ProteinColor,
                 backgroundColor = ProteinColorBackground,
+                iconResource = painterResource(id = R.drawable.ic_protein_cute_transp),
                 modifier = Modifier.size(190.dp)
             )
         }
@@ -77,6 +80,7 @@ fun NutrientsBox(
                 unit = stringResource(id = R.string.grams),
                 color = CarbColor,
                 backgroundColor = CarbColorBackground,
+                iconResource = painterResource(id = R.drawable.ic_carbs_cute_transp),
                 modifier = Modifier.size(190.dp)
             )
             NutrientBarInfo(
@@ -86,6 +90,7 @@ fun NutrientsBox(
                 unit = stringResource(id = R.string.grams),
                 color = FatColor,
                 backgroundColor = FatColorBackground,
+                iconResource = painterResource(id = R.drawable.ic_fats_cute_transp),
                 modifier = Modifier.size(190.dp)
             )
         }

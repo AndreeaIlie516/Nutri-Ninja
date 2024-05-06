@@ -3,14 +3,9 @@ package com.andreeailie.tracker_presentation.tracker_overview.components
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,13 +18,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.andreeailie.core.R
 import com.andreeailie.core_ui.LocalSpacing
 import com.andreeailie.tracker_presentation.components.UnitDisplay
 
@@ -41,6 +35,7 @@ fun NutrientBarInfo(
     unit: String,
     color: Color,
     backgroundColor: Color,
+    iconResource: Painter,
     modifier: Modifier = Modifier,
     strokeWidth: Dp = 8.dp,
 ) {
@@ -67,14 +62,26 @@ fun NutrientBarInfo(
             .clip(RoundedCornerShape(50.dp))
             .padding(start = 30.dp, top = 15.dp, end = 30.dp, bottom = 30.dp)
     ) {
-        Text(
-            text = name,
-            style = MaterialTheme.typography.headlineMedium,
-            color = Color.DarkGray,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            fontSize = 22.sp
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = name,
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.DarkGray,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                fontSize = 22.sp
+            )
+            Spacer(modifier = Modifier.width(spacing.spaceSmall))
+            Image(
+                painter = iconResource,
+                contentDescription = "icon",
+                modifier = Modifier
+                    .size(25.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(spacing.spaceLarge))
         Canvas(
             modifier = Modifier

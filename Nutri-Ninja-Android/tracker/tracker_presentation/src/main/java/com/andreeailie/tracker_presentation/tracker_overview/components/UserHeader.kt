@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.andreeailie.core.R
 import com.andreeailie.core_ui.*
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState
 
@@ -97,12 +99,16 @@ fun UserHeader(
                     .height(70.dp)
                     .padding(horizontal = spacing.spaceLarge, vertical = spacing.spaceSmall),
             ) {
-                Row() {
-//                    Icon(
-//                    painter = painterResource(id = R.drawable.ic_calories), // Assume you have an icon with this name
-//                    contentDescription = "Calories",
-//                    modifier = Modifier.size(20.dp)
-//                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_calories_cute_transp),
+                        contentDescription = "Calories",
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
                     Text(
                         text = state.totalCalories.toString() + " / " + state.caloriesGoal,
                         style = MaterialTheme.typography.headlineMedium,
@@ -112,14 +118,18 @@ fun UserHeader(
                     )
                 }
                 Spacer(modifier = Modifier.size(spacing.spaceExtraSmall))
-                Row() {
-//                    Icon(
-//                    painter = painterResource(id = R.drawable.ic_protein), // Assume you have an icon with this name
-//                    contentDescription = "Protein",
-//                    modifier = Modifier.size(20.dp)
-//                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_fats_cute_transp),
+                        contentDescription = "Fat",
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
                     Text(
-                        text = state.totalProtein.toString() + " / " + state.proteinGoal,
+                        text = state.totalFat.toString() + " / " + state.fatGoal,
                         style = MaterialTheme.typography.headlineMedium,
                         fontSize = 16.sp,
                         color = DarkGray,
