@@ -1,5 +1,6 @@
 package com.andreeailie.tracker_domain.use_case
 
+import android.util.Log
 import com.andreeailie.tracker_domain.model.MealType
 import com.andreeailie.tracker_domain.model.TrackableFood
 import com.andreeailie.tracker_domain.model.TrackedFood
@@ -13,7 +14,7 @@ class TrackFood(
 
     suspend operator fun invoke(
         foodName: String,
-        quantity: Int = 100,
+        quantity: Int,
         unit: String = "g",
         mealType: MealType,
         date: LocalDate
@@ -26,11 +27,14 @@ class TrackFood(
             unit = unit
         )
 
+        Log.d("TrackFood", "result: $result")
+
         result.onSuccess { trackableFood ->
+            Log.d("TrackFood", "trackableFood: $trackableFood")
             trackedFood = trackableFood
 
         }.onFailure {
-
+            Log.d("TrackFood", "onFailure")
         }
         trackedFood?.let {
             TrackedFood(

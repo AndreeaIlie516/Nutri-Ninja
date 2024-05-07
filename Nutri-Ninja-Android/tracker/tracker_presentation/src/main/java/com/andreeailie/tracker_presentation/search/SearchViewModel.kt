@@ -104,13 +104,20 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun trackFood(event: SearchEvent.OnTrackFoodClick) {
+        Log.d("SearchViewModel", "trackFood")
         viewModelScope.launch {
             val uiState = state.trackableFood.find { it.food == event.food }
+            Log.d("SearchViewModel", "uiState: $uiState")
+            Log.d("SearchViewModel", "foodName: ${ uiState?.food?.name }")
+            Log.d("SearchViewModel", "quantity: ${ uiState?.food?.quantity }")
+            Log.d("SearchViewModel", "fat: ${ uiState?.food?.fat }")
+            Log.d("SearchViewModel", "unit: ${ event.unit }")
+            Log.d("SearchViewModel", "mealType: ${ event.mealType }")
+            Log.d("SearchViewModel", "date: ${ event.date }")
             trackerUseCases.trackFood(
                 foodName =  uiState?.food?.name ?: return@launch,
                 quantity = uiState.amount.toIntOrNull() ?: return@launch,
-                //TODO: add unit
-                //unit = uiState.
+                unit = event.unit,
                 mealType = event.mealType,
                 date = event.date
             )
