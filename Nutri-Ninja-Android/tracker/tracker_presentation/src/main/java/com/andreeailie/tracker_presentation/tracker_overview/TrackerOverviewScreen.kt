@@ -4,35 +4,28 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.annotation.ExperimentalCoilApi
 import com.andreeailie.core.R
 import com.andreeailie.core.util.UiEvent
-import com.andreeailie.core_ui.*
-import com.andreeailie.tracker_presentation.tracker_overview.components.AddButton
+import com.andreeailie.core_ui.BackgroundLightGreen
+import com.andreeailie.core_ui.LocalSpacing
 import com.andreeailie.tracker_presentation.tracker_overview.components.DaySelector
-import com.andreeailie.tracker_presentation.tracker_overview.components.ExpandableMeal
 import com.andreeailie.tracker_presentation.tracker_overview.components.MealItems
 import com.andreeailie.tracker_presentation.tracker_overview.components.NutrientsBox
-import com.andreeailie.tracker_presentation.tracker_overview.components.TrackedFoodItem
 import com.andreeailie.tracker_presentation.tracker_overview.components.UserHeader
 
-@OptIn(ExperimentalCoilApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TrackerOverviewScreen(
@@ -45,7 +38,7 @@ fun TrackerOverviewScreen(
     val context = LocalContext.current
     LaunchedEffect(key1 = context) {
         viewModel.uiEvent.collect { event ->
-            when(event) {
+            when (event) {
                 is UiEvent.Navigate -> onNavigate(event)
                 else -> Unit
             }
@@ -55,10 +48,14 @@ fun TrackerOverviewScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundLightGreen)
-            .padding(top = spacing.spaceLarge)
+            .padding(top = spacing.spaceLarge, bottom = 70.dp)
     ) {
         item {
-            UserHeader(userPhoto = painterResource(id = R.drawable.profile), userName = "Andreea", state)
+            UserHeader(
+                userPhoto = painterResource(id = R.drawable.profile),
+                userName = "Andreea",
+                state
+            )
             Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
             DaySelector(
                 date = state.date,
@@ -80,10 +77,30 @@ fun TrackerOverviewScreen(
             MealItems(
                 meals = state.meals,
                 trackedFoods = state.trackedFoods,
-                onToggleMealClick = { meal -> viewModel.onEvent(TrackerOverviewEvent.OnToggleMealClick(meal)) },
-                onDeleteTrackedFoodClick = { food -> viewModel.onEvent(TrackerOverviewEvent.OnDeleteTrackedFoodClick(food)) },
-                onAddFoodClick = { meal -> viewModel.onEvent(TrackerOverviewEvent.OnAddFoodClick(meal)) },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.spaceMedium)
+                onToggleMealClick = { meal ->
+                    viewModel.onEvent(
+                        TrackerOverviewEvent.OnToggleMealClick(
+                            meal
+                        )
+                    )
+                },
+                onDeleteTrackedFoodClick = { food ->
+                    viewModel.onEvent(
+                        TrackerOverviewEvent.OnDeleteTrackedFoodClick(
+                            food
+                        )
+                    )
+                },
+                onAddFoodClick = { meal ->
+                    viewModel.onEvent(
+                        TrackerOverviewEvent.OnAddFoodClick(
+                            meal
+                        )
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = spacing.spaceMedium)
             )
         }
     }
