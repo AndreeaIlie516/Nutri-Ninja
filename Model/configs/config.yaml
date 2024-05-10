@@ -1,0 +1,22 @@
+data:
+  use_subsets: true
+  train:
+    annotations: 'data/raw/train/annotations.json'
+    images: 'data/raw/train/images/'
+  val:
+    annotations: 'data/raw/validation/annotations.json'
+    images: 'data/raw/validation/images/'
+  test:
+    annotations: 'data/raw/test/annotations.json'
+    images: 'data/raw/test/images/'
+
+subsets:
+  train:
+    annotations: 'data/subsets/train/annotations.json'
+    images: 'data/subsets/train/images/'
+  val:
+    annotations: 'data/subsets/validation/annotations.json'
+    images: 'data/subsets/validation/images/'
+  test:
+    annotations: 'data/subsets/test/annotations.json'
+    images: 'data/subsets/test/images/'
