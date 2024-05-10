@@ -179,7 +179,7 @@ def get_access_token():
     url = "https://oauth.fatsecret.com/connect/token"
     data = {
         "grant_type": "client_credentials",
-        "scope": "basic"
+        "scope": "premier"
     }
     response = requests.post(url, auth=(API_KEY_FATSECRET, API_SECRET_FATSECRET), data=data)
     if response.status_code == 200:
@@ -202,41 +202,53 @@ def search_food():
         'Authorization': f'Client-ID {API_KEY_UNSPLASH}'
     }
     url = "https://platform.fatsecret.com/rest/server.api"
+    # params = {
+    #     "method": "foods.autocomplete.v2",
+    #     "expression": query,
+    #     "max_results": 7,
+    #     "format": "json",
+    #     "language": "en"
+    # }
     params = {
-        "method": "foods.search",
+        "method": "foods.search.v3",
         "search_expression": query,
         "max_results": 7,
-        "format": "json"
+        "format": "json",
+        "language": "en",
+        "include_food_images": True
     }
 
-    # Make the initial search request
     response = requests.post(url, headers=headers, params=params)
 
     if response.status_code == 200:
         data = response.json()
 
-        # Prepare data for parallel processing
-        food_details = [(item, headers, headers_unsplash) for item in data["foods"]["food"]]
+        food_details = [(item, headers, headers_unsplash) for item in data["foods_search"]["results"]["food"]]
+        return jsonify(food_details), 200
 
-        # Process each food item in parallel
         with ThreadPoolExecutor(max_workers=10) as executor:
             results = executor.map(fetch_details, food_details)
 
         food_items = list(results)
 
-    return jsonify({"products": food_items}), 200
+        return jsonify({"products": food_items}), 200
+    else:
+        return jsonify({"error": "Failed to search food"}), 400
 
 
 def fetch_details(food_detail):
+    print(food_detail)
+    return
     item, headers, headers_unsplash = food_detail
     food_name = item['food_name']
     food_id = item['food_id']
 
-    # Fetch nutrient details
-    nutriments = fetch_nutrients(food_id, headers)
+    if item["food_type"] == "Generic":
+        image_url = item.get("food_images")["food_image"][0]["image_url"]
+    else:
+        image_url = fetch_image(food_name, headers_unsplash)
 
-    # Fetch image URL
-    image_url = fetch_image(food_name, headers_unsplash)
+    nutriments = extract_nutrients(food_detail)
 
     is_branded = (item["food_type"] == "Brand")
     brand_name = item.get("brand_name", "")
@@ -278,7 +290,7 @@ def fetch_image(food_name, headers_unsplash):
 
 def extract_nutrients(nutriments_data):
     nutriments = None
-    for serving in nutriments_data["food"]["servings"]["serving"]:
+    for serving in nutriments_data[0]["servings"]["serving"]:
         if serving.get("metric_serving_amount") == "100.000":
             nutriments = {
                 "calories": float(serving["calories"]),
