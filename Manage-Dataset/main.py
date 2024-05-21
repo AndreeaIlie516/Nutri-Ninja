@@ -1,8 +1,10 @@
 import compute_test_allocations
+import extract_categories
 import images_per_category
 import move_from_train_to_test
 import split_annotation_file
 import select_data_subset
+import update_categories_numbers
 
 train_annotation_file = ('../../Machine-Learning/Dataset_2022_498_classes/raw_data/public_training_set_release_2.0'
                          '/original_annotations/annotations.json')
@@ -24,8 +26,18 @@ validation_annotation_dir = "./validation_annotations"
 image_per_category_subset_csv_file = './output/images_per_category_subset.csv'
 validation_directory = '../../Machine-Learning/Dataset_2022_498_classes/raw_data/public_validation_set_2.0'
 subset_directory = '../../Machine-Learning/Dataset_2022_498_classes/raw_data/subsets'
+categories_output_csv_file = './output/categories_output.csv'
 
 if __name__ == "__main__":
+    annotations_path = 'subset_train_annotations.json'
+    output_path = './output/new_train_annotations.json'
+    category_mapping_path = 'output/category_id_mapping.json'
+    annotations_mapping_path = './output/annotations_id_mapping.json'
+    update_categories_numbers.process(annotations_path, output_path, category_mapping_path, annotations_mapping_path)
+
+    # extract_categories.process_data(
+    #     annotation_file=train_annotation_file, output_csv_file=image_per_category_output_csv_file
+    # )
     # images_per_category.process_data(
     #     annotation_file=train_annotation_file, output_csv_file=image_per_category_output_csv_file
     # )
@@ -64,12 +76,12 @@ if __name__ == "__main__":
     #     output_csv_file=image_per_category_subset_csv_file
     # )
 
-    select_data_subset.process_data(
-        category_file=train_directory+'/annotations/categories.json',
-        image_file=train_directory+'/annotations/images.json',
-        annotation_file=train_directory+'/annotations/annotations.json',
-        subset_percentage=0.1,
-        source_img_dir=train_directory+'/images/',
-        output_directory=subset_directory+'/train_subset'
-    )
+    # select_data_subset.process_data(
+    #     category_file=train_directory+'/annotations/categories.json',
+    #     image_file=train_directory+'/annotations/images.json',
+    #     annotation_file=train_directory+'/annotations/annotations.json',
+    #     subset_percentage=0.1,
+    #     source_img_dir=train_directory+'/images/',
+    #     output_directory=subset_directory+'/train_subset'
+    # )
 
