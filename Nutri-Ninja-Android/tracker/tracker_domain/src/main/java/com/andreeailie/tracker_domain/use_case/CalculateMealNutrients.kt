@@ -52,25 +52,26 @@ class CalculateMealNutrients(
     }
 
     private fun bmr(userInfo: UserInfo): Int {
-        return when(userInfo.gender) {
+        return when (userInfo.gender) {
             is Gender.Male -> {
                 (66.47f + 13.75f * userInfo.weight +
                         5f * userInfo.height - 6.75f * userInfo.age).roundToInt()
             }
-            is Gender.Female ->  {
-                (665.09f + 9.56f * userInfo.weight +
-                        1.84f * userInfo.height - 4.67 * userInfo.age).roundToInt()
+
+            is Gender.Female -> {
+                (655.09f + 9.56f * userInfo.weight +
+                        1.85f * userInfo.height - 4.67 * userInfo.age).roundToInt()
             }
         }
     }
 
     private fun dailyCalorieRequirement(userInfo: UserInfo): Int {
-        val activityFactor = when(userInfo.activityLevel) {
+        val activityFactor = when (userInfo.activityLevel) {
             is ActivityLevel.Low -> 1.2f
             is ActivityLevel.Medium -> 1.3f
             is ActivityLevel.High -> 1.4f
         }
-        val calorieExtra = when(userInfo.goalType) {
+        val calorieExtra = when (userInfo.goalType) {
             is GoalType.LoseWeight -> -500
             is GoalType.KeepWeight -> 0
             is GoalType.GainWeight -> 500

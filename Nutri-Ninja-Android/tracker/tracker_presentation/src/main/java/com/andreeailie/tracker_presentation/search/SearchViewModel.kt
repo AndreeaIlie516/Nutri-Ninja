@@ -6,11 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andreeailie.core.R
 import com.andreeailie.core.domain.use_case.FilterOutDigits
 import com.andreeailie.core.util.UiEvent
 import com.andreeailie.core.util.UiText
 import com.andreeailie.tracker_domain.use_case.TrackerUseCases
-import com.andreeailie.core.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val trackerUseCases: TrackerUseCases,
     private val filterOutDigits: FilterOutDigits
-): ViewModel() {
+) : ViewModel() {
 
     var state by mutableStateOf(SearchState())
         private set
@@ -30,39 +30,45 @@ class SearchViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onEvent(event: SearchEvent) {
-        when(event) {
+        when (event) {
             is SearchEvent.OnQueryChange -> {
                 Log.d("SearchViewModel", "OnQueryChange")
                 state = state.copy(query = event.query)
             }
+
             is SearchEvent.OnAmountForFoodChange -> {
+                Log.d("SearchViewModel", "OnAmountFoodChange")
                 state = state.copy(
                     trackableFood = state.trackableFood.map {
-                        if(it.food == event.food) {
+                        if (it.food == event.food) {
                             it.copy(amount = filterOutDigits(event.amount))
                         } else it
                     }
                 )
             }
+
             is SearchEvent.OnSearch -> {
                 Log.d("SearchViewModel", "OnSearch")
                 executeSearch()
             }
+
             is SearchEvent.OnToggleTrackableFood -> {
                 state = state.copy(
                     trackableFood = state.trackableFood.map {
-                        if(it.food == event.food) {
+                        if (it.food == event.food) {
                             it.copy(isExpanded = !it.isExpanded)
                         } else it
                     }
                 )
             }
+
             is SearchEvent.OnSearchFocusChange -> {
                 Log.d("SearchViewModel", "OnSearchFocusChange")
                 state = state.copy(
                     isHintVisible = !event.isFocused && state.query.isBlank()
                 )
             }
+
             is SearchEvent.OnTrackFoodClick -> {
                 trackFood(event)
             }
@@ -108,14 +114,14 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             val uiState = state.trackableFood.find { it.food == event.food }
             Log.d("SearchViewModel", "uiState: $uiState")
-            Log.d("SearchViewModel", "foodName: ${ uiState?.food?.name }")
-            Log.d("SearchViewModel", "quantity: ${ uiState?.food?.quantity }")
-            Log.d("SearchViewModel", "fat: ${ uiState?.food?.fat }")
-            Log.d("SearchViewModel", "unit: ${ event.unit }")
-            Log.d("SearchViewModel", "mealType: ${ event.mealType }")
-            Log.d("SearchViewModel", "date: ${ event.date }")
+            Log.d("SearchViewModel", "foodName: ${uiState?.food?.name}")
+            Log.d("SearchViewModel", "quantity: ${uiState?.food?.quantity}")
+            Log.d("SearchViewModel", "fat: ${uiState?.food?.fatPer100g}")
+            Log.d("SearchViewModel", "unit: ${event.unit}")
+            Log.d("SearchViewModel", "mealType: ${event.mealType}")
+            Log.d("SearchViewModel", "date: ${event.date}")
             trackerUseCases.trackFood(
-                foodName =  uiState?.food?.name ?: return@launch,
+                foodName = uiState?.food?.name ?: return@launch,
                 quantity = uiState.amount.toIntOrNull() ?: return@launch,
                 unit = event.unit,
                 mealType = event.mealType,

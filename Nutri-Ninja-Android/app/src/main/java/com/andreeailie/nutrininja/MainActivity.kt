@@ -25,6 +25,8 @@ import com.andreeailie.onboarding_presentation.height.HeightScreen
 import com.andreeailie.onboarding_presentation.nutrient_goal.NutrientGoalScreen
 import com.andreeailie.onboarding_presentation.weight.WeightScreen
 import com.andreeailie.onboarding_presentation.welcome.WelcomeScreen
+import com.andreeailie.tracker_presentation.groceries_list.GroceriesListScreen
+//import com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryScreen
 import com.andreeailie.tracker_presentation.search.SearchScreen
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -130,6 +132,12 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+                        composable(Route.GROCERIES_LIST) {
+                            GroceriesListScreen(onNavigate = navController::navigate)
+                        }
+//                        composable(Route.ADD_GROCERY) {
+//                            AddEditGroceryScreen(onNavigate = navController::navigate)
+//                        }
                     }
                 }
             }

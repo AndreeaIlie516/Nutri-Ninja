@@ -66,21 +66,29 @@ fun MealItems(
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = spacing.spaceSmall)
+                            //.padding(horizontal = spacing.spaceExtraSmall)
                         ) {
                             trackedFoods
                                 .filter { it.mealType == meal.mealType }
                                 .forEach { food ->
-                                    TrackedFoodItem(
+                                    DeleteTrackedFood(
                                         trackedFood = food,
-                                        onDeleteClick = { onDeleteTrackedFoodClick(food) }
-                                    )
+                                        onDeleteTrackedFoodClick = { onDeleteTrackedFoodClick(food) })
+//                                    TrackedFoodItem(
+//                                        trackedFood = food,
+//                                        onDeleteClick = { onDeleteTrackedFoodClick(food) }
+//                                    )
                                     Spacer(modifier = Modifier.height(spacing.spaceMedium))
                                 }
                             AddButton(
-                                text = stringResource(id = R.string.add_meal, meal.name.asString(LocalContext.current)),
+                                text = stringResource(
+                                    id = R.string.add_meal,
+                                    meal.name.asString(LocalContext.current)
+                                ),
                                 onClick = { onAddFoodClick(meal) },
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = spacing.spaceSmall)
                             )
                         }
                     },

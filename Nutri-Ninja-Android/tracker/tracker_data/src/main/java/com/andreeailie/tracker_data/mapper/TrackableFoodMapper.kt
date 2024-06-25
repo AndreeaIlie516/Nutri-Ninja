@@ -16,9 +16,9 @@ fun SearchedProduct.toTrackableFood(): TrackableFood {
         imageUrl = imageUrl ?: "",
         quantity = quantity ?: 1,
         unit = unit ?: "g",
-        calories = calories ?: 0,
-        carbs = carbs ?: 0,
-        protein = protein ?: 0,
-        fat = fat ?: 0,
+        caloriesPer100g = calories ?: 0,
+        carbsPer100g = carbs ?: 0,
+        proteinPer100g = protein ?: 0,
+        fatPer100g = fat ?: 0,
     )
 }

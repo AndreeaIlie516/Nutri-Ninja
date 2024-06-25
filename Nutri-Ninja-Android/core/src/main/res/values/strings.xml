@@ -22,7 +22,7 @@
     <string name="next_day">Next day</string>
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
-    <string name="nutrient_info">%dg • %dkcal</string>
+    <string name="calorie_info">%dkcal</string>
     <string name="amount_info">%dg</string>
     <string name="grams">gms</string>
     <string name="extend">Extend</string>
@@ -58,4 +58,11 @@
     <string name="error_not_100_percent">The values must add up to 100%</string>
     <string name="your_goal">Your goal:</string>
     <string name="delete">Delete</string>
+    <string name="add_grocery_label">+</string>
+    <string name="delete_confirmation_question">Are you sure you want to delete this item?</string>
+    <string name="delete_confirm">Yes</string>
+    <string name="delete_deny">No</string>
+    <string name="groceries_list_screen">Groceries list</string>
+    <string name="add_grocery_screen">Add Grocery</string>
+    <string name="add_grocery_button_label">Add Grocery</string>
 </resources>

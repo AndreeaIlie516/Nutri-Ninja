@@ -2,7 +2,6 @@ package com.andreeailie.tracker_presentation.tracker_overview.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,10 +11,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,37 +29,44 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.andreeailie.core.R
 import com.andreeailie.core_ui.LocalSpacing
 import com.andreeailie.tracker_domain.model.TrackedFood
-import com.andreeailie.core.R
 import com.andreeailie.tracker_presentation.components.NutrientInfo
 
 @ExperimentalCoilApi
 @Composable
 fun TrackedFoodItem(
     trackedFood: TrackedFood,
-    onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val spacing = LocalSpacing.current
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(5.dp))
+            .clip(RoundedCornerShape(10.dp))
             .padding(spacing.spaceExtraSmall)
             .shadow(
-                elevation = 1.dp,
-                shape = RoundedCornerShape(5.dp)
+                elevation = 0.dp,
+                shape = RoundedCornerShape(10.dp)
             )
-            .background(MaterialTheme.colorScheme.surface)
-            .padding(end = spacing.spaceMedium)
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape = AbsoluteRoundedCornerShape(
+                    topLeft = 10.dp,
+                    topRight = 10.dp,
+                    bottomLeft = 10.dp,
+                    bottomRight = 10.dp
+                )
+            )
+            .padding(end = spacing.spaceSmall)
             .height(100.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = rememberAsyncImagePainter(
                 ImageRequest.Builder(LocalContext.current).data(data = trackedFood.imageUrl)
-                    .apply<ImageRequest.Builder>(block = fun ImageRequest.Builder.() {
+                    .apply(block = fun ImageRequest.Builder.() {
                         crossfade(true)
                         error(R.drawable.ic_burger)
                         fallback(R.drawable.ic_burger)
@@ -86,63 +90,100 @@ fun TrackedFoodItem(
         ) {
             Text(
                 text = trackedFood.name,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2
             )
             Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
             Text(
                 text = stringResource(
-                    id = R.string.nutrient_info,
-                    trackedFood.quantity,
+                    id = R.string.amount_info,
+                    trackedFood.quantity
+                ),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = stringResource(
+                    id = R.string.calorie_info,
                     trackedFood.calories
                 ),
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Spacer(modifier = Modifier.width(spacing.spaceMedium))
-        Column(
-            modifier = Modifier.fillMaxHeight(),
-            verticalArrangement = Arrangement.Center
+        Spacer(modifier = Modifier.width(spacing.spaceSmall))
+        Row(
+            modifier = Modifier.padding(bottom = 14.dp, end = 5.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = stringResource(id = R.string.delete),
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .clickable { onDeleteClick() }
+            NutrientInfo(
+                name = stringResource(id = R.string.carbs),
+                amount = trackedFood.carbs,
+                unit = stringResource(id = R.string.grams),
+                amountTextSize = 14.sp,
+                unitTextSize = 10.sp,
+                nameTextStyle = MaterialTheme.typography.bodySmall
             )
-            Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                NutrientInfo(
-                    name = stringResource(id = R.string.carbs),
-                    amount = trackedFood.carbs,
-                    unit = stringResource(id = R.string.grams),
-                    amountTextSize = 16.sp,
-                    unitTextSize = 12.sp,
-                    nameTextStyle = MaterialTheme.typography.bodyMedium
-                )
-                Spacer(modifier = Modifier.width(spacing.spaceSmall))
-                NutrientInfo(
-                    name = stringResource(id = R.string.protein),
-                    amount = trackedFood.protein,
-                    unit = stringResource(id = R.string.grams),
-                    amountTextSize = 16.sp,
-                    unitTextSize = 12.sp,
-                    nameTextStyle = MaterialTheme.typography.bodyMedium
-                )
-                Spacer(modifier = Modifier.width(spacing.spaceSmall))
-                NutrientInfo(
-                    name = stringResource(id = R.string.fat),
-                    amount = trackedFood.fat,
-                    unit = stringResource(id = R.string.grams),
-                    amountTextSize = 16.sp,
-                    unitTextSize = 12.sp,
-                    nameTextStyle = MaterialTheme.typography.bodyMedium
-                )
-            }
+            Spacer(modifier = Modifier.width(spacing.spaceSmall))
+            NutrientInfo(
+                name = stringResource(id = R.string.protein),
+                amount = trackedFood.protein,
+                unit = stringResource(id = R.string.grams),
+                amountTextSize = 14.sp,
+                unitTextSize = 10.sp,
+                nameTextStyle = MaterialTheme.typography.bodySmall
+            )
+            Spacer(modifier = Modifier.width(spacing.spaceSmall))
+            NutrientInfo(
+                name = stringResource(id = R.string.fat),
+                amount = trackedFood.fat,
+                unit = stringResource(id = R.string.grams),
+                amountTextSize = 14.sp,
+                unitTextSize = 10.sp,
+                nameTextStyle = MaterialTheme.typography.bodySmall
+            )
         }
+//        Column(
+//            modifier = Modifier.fillMaxHeight(),
+//            verticalArrangement = Arrangement.Center
+//        ) {
+////            Icon(
+////                imageVector = Icons.Default.Close,
+////                contentDescription = stringResource(id = R.string.delete),
+////                modifier = Modifier
+////                    .size(10.dp)
+////                    .align(Alignment.End)
+////                    .clickable { onDeleteClick() }
+////            )
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                NutrientInfo(
+//                    name = stringResource(id = R.string.carbs),
+//                    amount = trackedFood.carbs,
+//                    unit = stringResource(id = R.string.grams),
+//                    amountTextSize = 16.sp,
+//                    unitTextSize = 12.sp,
+//                    nameTextStyle = MaterialTheme.typography.bodyMedium
+//                )
+//                Spacer(modifier = Modifier.width(spacing.spaceSmall))
+//                NutrientInfo(
+//                    name = stringResource(id = R.string.protein),
+//                    amount = trackedFood.protein,
+//                    unit = stringResource(id = R.string.grams),
+//                    amountTextSize = 16.sp,
+//                    unitTextSize = 12.sp,
+//                    nameTextStyle = MaterialTheme.typography.bodyMedium
+//                )
+//                Spacer(modifier = Modifier.width(spacing.spaceSmall))
+//                NutrientInfo(
+//                    name = stringResource(id = R.string.fat),
+//                    amount = trackedFood.fat,
+//                    unit = stringResource(id = R.string.grams),
+//                    amountTextSize = 16.sp,
+//                    unitTextSize = 12.sp,
+//                    nameTextStyle = MaterialTheme.typography.bodyMedium
+//                )
+//            }
+//        }
     }
 }

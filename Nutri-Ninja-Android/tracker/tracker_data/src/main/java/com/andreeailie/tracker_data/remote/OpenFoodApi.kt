@@ -1,6 +1,6 @@
 package com.andreeailie.tracker_data.remote
 
-import com.andreeailie.tracker_data.remote.dto.SearchDto
+import com.andreeailie.tracker_data.remote.dto.SearchProductDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,7 +11,7 @@ interface OpenFoodApi {
         @Query("search_terms") query: String,
         @Query("page") page: Int,
         @Query("page_size") pageSize: Int
-    ): SearchDto
+    ): SearchProductDto
 
     companion object {
         const val BASE_URL = "https://us.openfoodfacts.org/"

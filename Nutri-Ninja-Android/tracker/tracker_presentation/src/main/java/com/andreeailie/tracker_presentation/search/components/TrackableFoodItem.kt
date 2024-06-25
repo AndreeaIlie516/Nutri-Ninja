@@ -5,7 +5,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -66,7 +74,7 @@ fun TrackableFoodItem(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = CenterVertically
         ) {
             Row(
                 modifier = Modifier.weight(1f)
@@ -100,7 +108,7 @@ fun TrackableFoodItem(
                     Text(
                         text = stringResource(
                             id = R.string.kcal_per_100g,
-                            food.calories
+                            food.caloriesPer100g
                         ),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -109,7 +117,7 @@ fun TrackableFoodItem(
             Row {
                 NutrientInfo(
                     name = stringResource(id = R.string.carbs),
-                    amount = food.carbs,
+                    amount = food.carbsPer100g,
                     unit = stringResource(id = R.string.grams),
                     amountTextSize = 16.sp,
                     unitTextSize = 12.sp,
@@ -118,7 +126,7 @@ fun TrackableFoodItem(
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))
                 NutrientInfo(
                     name = stringResource(id = R.string.protein),
-                    amount = food.protein,
+                    amount = food.proteinPer100g,
                     unit = stringResource(id = R.string.grams),
                     amountTextSize = 16.sp,
                     unitTextSize = 12.sp,
@@ -127,7 +135,7 @@ fun TrackableFoodItem(
                 Spacer(modifier = Modifier.width(spacing.spaceSmall))
                 NutrientInfo(
                     name = stringResource(id = R.string.fat),
-                    amount = food.fat,
+                    amount = food.fatPer100g,
                     unit = stringResource(id = R.string.grams),
                     amountTextSize = 16.sp,
                     unitTextSize = 12.sp,
@@ -141,14 +149,14 @@ fun TrackableFoodItem(
                     .fillMaxWidth()
                     .padding(spacing.spaceMedium),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = CenterVertically
             ) {
                 Row {
                     BasicTextField(
                         value = trackableFoodUiState.amount,
                         onValueChange = onAmountChange,
                         keyboardOptions = KeyboardOptions(
-                            imeAction = if(trackableFoodUiState.amount.isNotBlank()) {
+                            imeAction = if (trackableFoodUiState.amount.isNotBlank()) {
                                 ImeAction.Done
                             } else ImeAction.Default,
                             keyboardType = KeyboardType.Number

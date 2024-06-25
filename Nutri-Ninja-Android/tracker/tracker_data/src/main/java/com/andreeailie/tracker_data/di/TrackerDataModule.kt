@@ -2,9 +2,9 @@ package com.andreeailie.tracker_data.di
 
 import android.app.Application
 import androidx.room.Room
+import com.andreeailie.tracker_data.local.GroceryDatabase
 import com.andreeailie.tracker_data.local.TrackerDatabase
 import com.andreeailie.tracker_data.remote.CustomFoodApi
-import com.andreeailie.tracker_data.remote.OpenFoodApi
 import com.andreeailie.tracker_data.repository.TrackerRepositoryImpl
 import com.andreeailie.tracker_domain.repository.TrackerRepository
 import dagger.Module
@@ -38,17 +38,6 @@ object TrackerDataModule {
             .build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideOpenFoodApi(client: OkHttpClient): OpenFoodApi {
-//        return Retrofit.Builder()
-//            .baseUrl(OpenFoodApi.BASE_URL)
-//            .addConverterFactory(MoshiConverterFactory.create())
-//            .client(client)
-//            .build()
-//            .create()
-//    }
-
     @Provides
     @Singleton
     fun provideCustomFoodApi(client: OkHttpClient): CustomFoodApi {
@@ -59,7 +48,6 @@ object TrackerDataModule {
             .build()
             .create()
     }
-
 
 
     @Provides
@@ -74,12 +62,24 @@ object TrackerDataModule {
 
     @Provides
     @Singleton
+    fun provideGroceryDatabase(app: Application): GroceryDatabase {
+        return Room.databaseBuilder(
+            app,
+            GroceryDatabase::class.java,
+            "grocery_db"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
     fun provideTrackerRepository(
         api: CustomFoodApi,
-        db: TrackerDatabase
+        trackerDatabase: TrackerDatabase,
+        groceryDatabase: GroceryDatabase
     ): TrackerRepository {
         return TrackerRepositoryImpl(
-            dao = db.dao,
+            trackerDao = trackerDatabase.dao,
+            groceryDao = groceryDatabase.dao,
             api = api
         )
     }

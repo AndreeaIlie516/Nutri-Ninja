@@ -43,10 +43,10 @@ class TrackFood(
                 brandName = it.brandName,
                 imageUrl = it.imageUrl,
                 unit = it.unit,
-                calories = it.calories,
-                carbs = it.carbs,
-                protein = it.protein,
-                fat = it.fat,
+                calories = ((it.caloriesPer100g / 100f) * quantity).roundToInt(),
+                carbs = ((it.carbsPer100g / 100f) * quantity).roundToInt(),
+                protein = ((it.proteinPer100g / 100f) * quantity).roundToInt(),
+                fat = ((it.fatPer100g / 100f) * quantity).roundToInt(),
                 mealType = mealType,
                 quantity = quantity,
                 date = date,
@@ -55,6 +55,7 @@ class TrackFood(
             repository.insertTrackedFood(
                 it
             )
+            Log.d("TrackFood", "trackedFood: $it")
         }
     }
 }
