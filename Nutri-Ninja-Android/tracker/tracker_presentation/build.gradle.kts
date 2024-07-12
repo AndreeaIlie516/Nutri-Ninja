@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation("androidx.compose.material3:material3:1.1.0")
+    implementation(libs.play.services.cast.framework)
 
     "kapt"("com.google.dagger:hilt-android-compiler:2.49")
     "kapt"("androidx.hilt:hilt-compiler:1.2.0")
@@ -77,8 +78,7 @@ dependencies {
     "kapt"("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
-
+    
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.annotation)

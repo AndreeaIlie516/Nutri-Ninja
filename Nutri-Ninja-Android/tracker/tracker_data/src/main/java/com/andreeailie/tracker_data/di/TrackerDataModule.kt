@@ -5,7 +5,10 @@ import androidx.room.Room
 import com.andreeailie.tracker_data.local.GroceryDatabase
 import com.andreeailie.tracker_data.local.TrackerDatabase
 import com.andreeailie.tracker_data.remote.CustomFoodApi
+import com.andreeailie.tracker_data.remote.FileUploadApi
+import com.andreeailie.tracker_data.repository.FileUploadRepositoryImpl
 import com.andreeailie.tracker_data.repository.TrackerRepositoryImpl
+import com.andreeailie.tracker_domain.repository.FileUploadRepository
 import com.andreeailie.tracker_domain.repository.TrackerRepository
 import dagger.Module
 import dagger.Provides
@@ -49,6 +52,17 @@ object TrackerDataModule {
             .create()
     }
 
+    @Provides
+    @Singleton
+    fun provideFileUploadApi(client: OkHttpClient): FileUploadApi {
+        return Retrofit.Builder()
+            .baseUrl(FileUploadApi.BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(client)
+            .build()
+            .create()
+    }
+
 
     @Provides
     @Singleton
@@ -80,6 +94,16 @@ object TrackerDataModule {
         return TrackerRepositoryImpl(
             trackerDao = trackerDatabase.dao,
             groceryDao = groceryDatabase.dao,
+            api = api
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFileUploadRepository(
+        api: FileUploadApi
+    ): FileUploadRepository {
+        return FileUploadRepositoryImpl(
             api = api
         )
     }

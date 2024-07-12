@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +34,7 @@ import com.andreeailie.core_ui.LocalSpacing
 import com.andreeailie.tracker_domain.model.MealType
 import com.andreeailie.tracker_presentation.search.components.SearchTextField
 import com.andreeailie.tracker_presentation.search.components.TrackableFoodItem
+import java.io.File
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -46,7 +48,8 @@ fun SearchScreen(
     month: Int,
     year: Int,
     onNavigateUp: () -> Unit,
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchViewModel = hiltViewModel(),
+    fileUploadViewModel: FileUploadViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     val state = viewModel.state
@@ -62,6 +65,7 @@ fun SearchScreen(
                     )
                     keyboardController?.hide()
                 }
+
                 is UiEvent.NavigateUp -> onNavigateUp()
                 else -> Unit
             }
@@ -100,9 +104,11 @@ fun SearchScreen(
                         viewModel.onEvent(SearchEvent.OnToggleTrackableFood(food.food))
                     },
                     onAmountChange = {
-                        viewModel.onEvent(SearchEvent.OnAmountForFoodChange(
-                            food.food, it
-                        ))
+                        viewModel.onEvent(
+                            SearchEvent.OnAmountForFoodChange(
+                                food.food, it
+                            )
+                        )
                     },
                     onTrack = {
                         keyboardController?.hide()
@@ -132,6 +138,22 @@ fun SearchScreen(
                     textAlign = TextAlign.Center
                 )
             }
+        }
+    }
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Button(onClick = {
+            val file = File(context.cacheDir, "image.jpeg")
+            file.createNewFile()
+            file.outputStream().use {
+                context.assets.open("carbonara.jpeg").copyTo(it)
+            }
+            Log.d("SearchScreen", file.absolutePath)
+            fileUploadViewModel.uploadImage(file)
+        }) {
+            Text(text = "Upload image")
         }
     }
 }

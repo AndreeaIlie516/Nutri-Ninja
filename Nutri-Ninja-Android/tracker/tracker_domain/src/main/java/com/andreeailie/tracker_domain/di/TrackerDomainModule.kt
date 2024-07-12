@@ -1,6 +1,7 @@
 package com.andreeailie.tracker_domain.di
 
 import com.andreeailie.core.domain.preferences.Preferences
+import com.andreeailie.tracker_domain.repository.FileUploadRepository
 import com.andreeailie.tracker_domain.repository.TrackerRepository
 import com.andreeailie.tracker_domain.use_case.AddGrocery
 import com.andreeailie.tracker_domain.use_case.CalculateMealNutrients
@@ -14,6 +15,7 @@ import com.andreeailie.tracker_domain.use_case.SearchGrocery
 import com.andreeailie.tracker_domain.use_case.ToggleGroceryStatus
 import com.andreeailie.tracker_domain.use_case.TrackFood
 import com.andreeailie.tracker_domain.use_case.TrackerUseCases
+import com.andreeailie.tracker_domain.use_case.UploadFile
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +31,7 @@ object TrackerDomainModule {
     @Provides
     fun provideTrackerUseCases(
         repository: TrackerRepository,
+        fileUploadRepository: FileUploadRepository,
         preferences: Preferences
     ): TrackerUseCases {
         return TrackerUseCases(
@@ -36,7 +39,8 @@ object TrackerDomainModule {
             searchFood = SearchFood(repository),
             getFoodsForDate = GetFoodsForDate(repository),
             deleteTrackedFood = DeleteTrackedFood(repository),
-            calculateMealNutrients = CalculateMealNutrients(preferences)
+            calculateMealNutrients = CalculateMealNutrients(preferences),
+            uploadFile = UploadFile(fileUploadRepository)
         )
     }
 

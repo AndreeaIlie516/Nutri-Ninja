@@ -30,6 +30,7 @@ roomRuntime = "2.6.1"
 roomCommon = "2.6.1"
 runtime = "1.6.7"
 material3Android = "1.2.1"
+playServicesCastFramework = "21.5.0"
 
 [libraries]
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
@@ -77,6 +78,7 @@ okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-intercepto
 androidx-compose-foundation = {module = "androidx.compose.foundation:foundation"}
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+play-services-cast-framework = { group = "com.google.android.gms", name = "play-services-cast-framework", version.ref = "playServicesCastFramework" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
