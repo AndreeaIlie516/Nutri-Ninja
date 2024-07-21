@@ -6,9 +6,12 @@ import com.andreeailie.tracker_data.local.GroceryDatabase
 import com.andreeailie.tracker_data.local.TrackerDatabase
 import com.andreeailie.tracker_data.remote.CustomFoodApi
 import com.andreeailie.tracker_data.remote.FileUploadApi
+import com.andreeailie.tracker_data.remote.ModelApi
 import com.andreeailie.tracker_data.repository.FileUploadRepositoryImpl
+import com.andreeailie.tracker_data.repository.ModelRepositoryImpl
 import com.andreeailie.tracker_data.repository.TrackerRepositoryImpl
 import com.andreeailie.tracker_domain.repository.FileUploadRepository
+import com.andreeailie.tracker_domain.repository.ModelRepository
 import com.andreeailie.tracker_domain.repository.TrackerRepository
 import dagger.Module
 import dagger.Provides
@@ -63,6 +66,17 @@ object TrackerDataModule {
             .create()
     }
 
+    @Provides
+    @Singleton
+    fun provideModelApi(client: OkHttpClient): ModelApi {
+        return Retrofit.Builder()
+            .baseUrl(ModelApi.BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(client)
+            .build()
+            .create()
+    }
+
 
     @Provides
     @Singleton
@@ -104,6 +118,16 @@ object TrackerDataModule {
         api: FileUploadApi
     ): FileUploadRepository {
         return FileUploadRepositoryImpl(
+            api = api
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideModelRepository(
+        api: ModelApi
+    ): ModelRepository {
+        return ModelRepositoryImpl(
             api = api
         )
     }

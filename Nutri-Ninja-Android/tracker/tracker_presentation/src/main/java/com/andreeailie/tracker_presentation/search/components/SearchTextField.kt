@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Photo
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,16 +26,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.andreeailie.core_ui.LocalSpacing
 import com.andreeailie.core.R
+import com.andreeailie.core_ui.LocalSpacing
 
 @Composable
 fun SearchTextField(
     text: String,
     onValueChange: (String) -> Unit,
     onSearch: () -> Unit,
+    onUpload: () -> Unit,
     modifier: Modifier = Modifier,
     hint: String = stringResource(id = R.string.search),
     shouldShowHint: Boolean = false,
@@ -70,7 +71,7 @@ fun SearchTextField(
                 .padding(end = spacing.spaceMedium)
                 .onFocusChanged { onFocusChanged(it) }
         )
-        if(shouldShowHint) {
+        if (shouldShowHint) {
             Text(
                 text = hint,
                 style = MaterialTheme.typography.bodySmall,
@@ -83,11 +84,23 @@ fun SearchTextField(
         }
         IconButton(
             onClick = onSearch,
-            modifier = Modifier.align(Alignment.CenterEnd)
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(end = 30.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = stringResource(id = R.string.search)
+            )
+        }
+        IconButton(
+            onClick = onUpload,
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Photo,
+                contentDescription = null
             )
         }
     }

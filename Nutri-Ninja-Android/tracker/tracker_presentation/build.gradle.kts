@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation("androidx.compose.material3:material3:1.1.0")
     implementation(libs.play.services.cast.framework)
+    implementation(libs.androidx.runtime.livedata)
 
     "kapt"("com.google.dagger:hilt-android-compiler:2.49")
     "kapt"("androidx.hilt:hilt-compiler:1.2.0")
@@ -78,7 +79,10 @@ dependencies {
     "kapt"("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    
+
+    implementation("com.google.accompanist:accompanist-insets:0.24.13-rc")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
+
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.annotation)

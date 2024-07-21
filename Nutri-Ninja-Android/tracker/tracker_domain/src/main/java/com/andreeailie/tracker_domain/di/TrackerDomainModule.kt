@@ -1,7 +1,7 @@
 package com.andreeailie.tracker_domain.di
 
 import com.andreeailie.core.domain.preferences.Preferences
-import com.andreeailie.tracker_domain.repository.FileUploadRepository
+import com.andreeailie.tracker_domain.repository.ModelRepository
 import com.andreeailie.tracker_domain.repository.TrackerRepository
 import com.andreeailie.tracker_domain.use_case.AddGrocery
 import com.andreeailie.tracker_domain.use_case.CalculateMealNutrients
@@ -31,7 +31,7 @@ object TrackerDomainModule {
     @Provides
     fun provideTrackerUseCases(
         repository: TrackerRepository,
-        fileUploadRepository: FileUploadRepository,
+        modelRepository: ModelRepository,
         preferences: Preferences
     ): TrackerUseCases {
         return TrackerUseCases(
@@ -40,7 +40,7 @@ object TrackerDomainModule {
             getFoodsForDate = GetFoodsForDate(repository),
             deleteTrackedFood = DeleteTrackedFood(repository),
             calculateMealNutrients = CalculateMealNutrients(preferences),
-            uploadFile = UploadFile(fileUploadRepository)
+            uploadFile = UploadFile(modelRepository)
         )
     }
 
