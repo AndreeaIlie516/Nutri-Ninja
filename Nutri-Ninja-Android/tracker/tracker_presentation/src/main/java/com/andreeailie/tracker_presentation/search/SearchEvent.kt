@@ -12,11 +12,19 @@ sealed class SearchEvent {
         val food: TrackableFood,
         val amount: String
     ) : SearchEvent()
+
     data class OnTrackFoodClick(
         val food: TrackableFood,
         val mealType: MealType,
         val date: LocalDate,
         val unit: String = "g"
-    ): SearchEvent()
-    data class OnSearchFocusChange(val isFocused: Boolean): SearchEvent()
+    ) : SearchEvent()
+
+    data class OnSearchFocusChange(val isFocused: Boolean) : SearchEvent()
+    data class SaveIdentifiedItems(
+        val identifiedItems: Map<String, Pair<String, Int>>,
+        val mealName: String,
+        val date: LocalDate,
+        val unit: String = "g"
+    ) : SearchEvent()
 }

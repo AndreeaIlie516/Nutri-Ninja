@@ -3,6 +3,7 @@ package com.andreeailie.tracker_presentation.search
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -17,6 +18,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -56,6 +58,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
@@ -101,7 +104,8 @@ fun SearchScreen(
             }
         }
 
-    val identifiedItems = remember { mutableStateOf(mutableMapOf<String, String>()) }
+    val identifiedItems =
+        remember { mutableStateOf(mutableMapOf<String, Pair<String, Int>>()) }
 
     LaunchedEffect(key1 = keyboardController) {
         viewModel.uiEvent.collect { event ->
@@ -220,24 +224,59 @@ fun SearchScreen(
                 uploadResponse?.let { response ->
                     if (response.success) {
                         response.results?.forEach { result ->
-                            val tag =
-                                identifiedItems.value.getOrDefault(result.`class`, result.`class`)
-                            DrawAnimatedContours(result.coordinates)
-                            DrawTag(tag, result.coordinates) { newTag ->
-                                identifiedItems.value = identifiedItems.value.toMutableMap().apply {
-                                    put(result.`class`, newTag)
+                            val tag = result.`class`
+                            val quantity = identifiedItems.value[result.`class`]?.second ?: 100
+                            identifiedItems.value =
+                                identifiedItems.value.toMutableMap().apply {
+                                    put(
+                                        result.`class`,
+                                        Pair(tag, quantity)
+                                    )
                                 }
-                            }
+                            DrawAnimatedContours(result.coordinates)
+                            DrawTag(
+                                tag = tag,
+                                quantity = quantity,
+                                coordinates = result.coordinates,
+                                onTagChange = { newTag ->
+                                    identifiedItems.value =
+                                        identifiedItems.value.toMutableMap().apply {
+                                            put(
+                                                result.`class`,
+                                                Pair(newTag, quantity)
+                                            )
+                                        }
+                                },
+                                onQuantityChange = { newQuantity ->
+                                    Log.d("SearchScreen", "newQuantity: $newQuantity")
+                                    identifiedItems.value =
+                                        identifiedItems.value.toMutableMap().apply {
+                                            put(
+                                                result.`class`,
+                                                Pair(
+                                                    tag,
+                                                    newQuantity.toIntOrNull() ?: 100
+                                                )
+                                            )
+                                        }
+                                }
+                            )
                         }
                         Spacer(modifier = Modifier.height(spacing.spaceMedium))
                         Button(
                             onClick = {
-                                // Handle save action here
-                                saveIdentifiedItems(identifiedItems.value)
+                                Log.d("SearchScreen", "Identified items: ${identifiedItems.value}")
+                                viewModel.onEvent(
+                                    SearchEvent.SaveIdentifiedItems(
+                                        identifiedItems = identifiedItems.value.mapValues { it.value },
+                                        mealName = mealName,
+                                        date = LocalDate.of(year, month, dayOfMonth)
+                                    )
+                                )
                             },
                             modifier = Modifier
                                 .align(Alignment.Center)
-                                .padding(top = 450.dp),
+                                .padding(top = 400.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = ButtonGreen)
                         ) {
                             Text("Save")
@@ -266,12 +305,6 @@ fun SearchScreen(
             }
         }
     }
-}
-
-fun saveIdentifiedItems(identifiedItems: Map<String, String>) {
-    // Implement your save logic here
-    // For example, you could save the items to a database or send them to a server
-    println("Saving items: $identifiedItems")
 }
 
 @Composable
@@ -308,7 +341,13 @@ fun DrawAnimatedContours(coordinates: List<Int>) {
 }
 
 @Composable
-fun DrawTag(tag: String, coordinates: List<Int>, onTagChange: (String) -> Unit) {
+fun DrawTag(
+    tag: String,
+    quantity: Int,
+    coordinates: List<Int>,
+    onTagChange: (String) -> Unit,
+    onQuantityChange: (String) -> Unit
+) {
     val imageWidth = 350
     val imageHeight = 350
     val scaleX = imageWidth.toFloat() / imageWidth
@@ -358,6 +397,22 @@ fun DrawTag(tag: String, coordinates: List<Int>, onTagChange: (String) -> Unit) 
                     .background(Color.White)
                     .padding(end = spacing.spaceMedium)
             )
+            Row {
+                BasicTextField(
+                    value = quantity.toString(),
+                    onValueChange = onQuantityChange,
+                    singleLine = true,
+                    modifier = Modifier
+                        .background(Color.White)
+                        .padding(end = spacing.spaceMedium)
+                )
+                Text(
+                    text = " g",
+                    modifier = Modifier
+                        .background(Color.White),
+                    fontSize = 16.sp
+                )
+            }
         }
     }
 }

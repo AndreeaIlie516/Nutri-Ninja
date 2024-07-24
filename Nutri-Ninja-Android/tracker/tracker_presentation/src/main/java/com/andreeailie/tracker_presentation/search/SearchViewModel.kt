@@ -10,12 +10,16 @@ import com.andreeailie.core.R
 import com.andreeailie.core.domain.use_case.FilterOutDigits
 import com.andreeailie.core.util.UiEvent
 import com.andreeailie.core.util.UiText
+import com.andreeailie.tracker_domain.model.MealType
+import com.andreeailie.tracker_domain.model.TrackableFood
 import com.andreeailie.tracker_domain.use_case.TrackerUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
+import kotlin.coroutines.cancellation.CancellationException
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -32,12 +36,10 @@ class SearchViewModel @Inject constructor(
     fun onEvent(event: SearchEvent) {
         when (event) {
             is SearchEvent.OnQueryChange -> {
-                Log.d("SearchViewModel", "OnQueryChange")
                 state = state.copy(query = event.query)
             }
 
             is SearchEvent.OnAmountForFoodChange -> {
-                Log.d("SearchViewModel", "OnAmountFoodChange")
                 state = state.copy(
                     trackableFood = state.trackableFood.map {
                         if (it.food == event.food) {
@@ -48,7 +50,6 @@ class SearchViewModel @Inject constructor(
             }
 
             is SearchEvent.OnSearch -> {
-                Log.d("SearchViewModel", "OnSearch")
                 executeSearch()
             }
 
@@ -63,7 +64,6 @@ class SearchViewModel @Inject constructor(
             }
 
             is SearchEvent.OnSearchFocusChange -> {
-                Log.d("SearchViewModel", "OnSearchFocusChange")
                 state = state.copy(
                     isHintVisible = !event.isFocused && state.query.isBlank()
                 )
@@ -72,62 +72,109 @@ class SearchViewModel @Inject constructor(
             is SearchEvent.OnTrackFoodClick -> {
                 trackFood(event)
             }
+
+            is SearchEvent.SaveIdentifiedItems -> {
+                saveIdentifiedItems(event.identifiedItems, event.mealName, event.date, event.unit)
+            }
         }
     }
 
-    private fun executeSearch() {
+    private fun executeSearch(
+        query: String = state.query,
+        onResult: (List<TrackableFood>) -> Unit = {}
+    ) {
+        Log.d("SearchViewModel", "executeSearch on query: $query")
         viewModelScope.launch {
             state = state.copy(
                 isSearching = true,
                 trackableFood = emptyList()
             )
-            Log.d("SearchViewModel", "searchFood called")
-            Log.d("SearchViewModel", "query: ${state.query}")
-            trackerUseCases
-                .searchFood(state.query)
-                .onSuccess { foods ->
-                    Log.d("SearchViewModel", "foods: $foods")
-                    state = state.copy(
-                        trackableFood = foods.map {
-                            TrackableFoodUiState(it)
-                        },
-                        isSearching = false,
-                        query = ""
-                    )
-                    Log.d("SearchViewModel", "searchFood on success")
-                    Log.d("SearchViewModel", "state: $state")
-                }
-                .onFailure {
-                    state = state.copy(isSearching = false)
-                    _uiEvent.send(
-                        UiEvent.ShowSnackbar(
-                            UiText.StringResource(R.string.error_something_went_wrong)
+            try {
+                trackerUseCases
+                    .searchFood(query)
+                    .onSuccess { foods ->
+                        Log.d("SearchViewModel", "executeSearch on success: $foods")
+                        state = state.copy(
+                            trackableFood = foods.map { TrackableFoodUiState(it) },
+                            isSearching = false,
+                            query = ""
                         )
-                    )
-                    Log.d("SearchViewModel", "searchFood on failure")
-                }
+                        onResult(foods)
+                    }
+                    .onFailure { error ->
+                        Log.d("SearchViewModel", "executeSearch on failure: $error")
+                        state = state.copy(isSearching = false)
+                        _uiEvent.send(UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_something_went_wrong)))
+                    }
+            } catch (e: CancellationException) {
+                Log.d("SearchViewModel", "executeSearch was cancelled: ${e.message}")
+                state = state.copy(isSearching = false)
+            } catch (e: Exception) {
+                Log.d("SearchViewModel", "executeSearch on failure: ${e.message}")
+                state = state.copy(isSearching = false)
+                _uiEvent.send(UiEvent.ShowSnackbar(UiText.StringResource(R.string.error_something_went_wrong)))
+            }
         }
     }
 
     private fun trackFood(event: SearchEvent.OnTrackFoodClick) {
-        Log.d("SearchViewModel", "trackFood")
+        Log.d("SearchViewModel", "onTrackFood")
         viewModelScope.launch {
             val uiState = state.trackableFood.find { it.food == event.food }
-            Log.d("SearchViewModel", "uiState: $uiState")
-            Log.d("SearchViewModel", "foodName: ${uiState?.food?.name}")
-            Log.d("SearchViewModel", "quantity: ${uiState?.food?.quantity}")
-            Log.d("SearchViewModel", "fat: ${uiState?.food?.fatPer100g}")
-            Log.d("SearchViewModel", "unit: ${event.unit}")
-            Log.d("SearchViewModel", "mealType: ${event.mealType}")
-            Log.d("SearchViewModel", "date: ${event.date}")
             trackerUseCases.trackFood(
                 foodName = uiState?.food?.name ?: return@launch,
-                quantity = uiState.amount.toIntOrNull() ?: return@launch,
+                quantity = uiState.amount.toIntOrNull() ?: 100,
                 unit = event.unit,
                 mealType = event.mealType,
                 date = event.date
             )
             _uiEvent.send(UiEvent.NavigateUp)
+        }
+    }
+
+    private fun trackIdentifiedFood(event: SearchEvent.OnTrackFoodClick) {
+        Log.d("SearchViewModel", "onTrackFood")
+        viewModelScope.launch {
+            val uiState = state.trackableFood.find { it.food == event.food }
+            trackerUseCases.trackFood(
+                foodName = event.food.name,
+                quantity = event.food.quantity,
+                unit = event.unit,
+                mealType = event.mealType,
+                date = event.date
+            )
+            _uiEvent.send(UiEvent.NavigateUp)
+        }
+    }
+
+    private fun saveIdentifiedItems(
+        identifiedItems: Map<String, Pair<String, Int>>,
+        mealName: String,
+        date: LocalDate,
+        unit: String
+    ) {
+        viewModelScope.launch {
+            Log.d("SearchViewModel", "identifiedItems: $identifiedItems")
+            identifiedItems.forEach { (originalTag, pair) ->
+                Log.d("SearchViewModel", "items: $pair")
+                executeSearch(pair.first) { foods ->
+                    if (foods.isNotEmpty()) {
+                        val food = foods.first()
+                        val newFood = food.copy(quantity = pair.second)
+                        Log.d("SearchViewModel", "Tracking food: $newFood")
+                        trackIdentifiedFood(
+                            SearchEvent.OnTrackFoodClick(
+                                food = newFood,
+                                unit = unit,
+                                mealType = MealType.fromString(mealName),
+                                date = date
+                            )
+                        )
+                    } else {
+                        Log.d("SearchViewModel", "No food found for query: ${pair.first}")
+                    }
+                }
+            }
         }
     }
 }

@@ -8,15 +8,21 @@ class SearchFood(
     private val repository: TrackerRepository
 ) {
 
-    suspend operator  fun invoke(
+    suspend operator fun invoke(
         query: String
     ): Result<List<TrackableFood>> {
-        if(query.isBlank()) {
+        if (query.isBlank()) {
+            Log.d("SearchFood", "Query is blank")
             return Result.success(emptyList())
         }
         Log.d("SearchFood", "Query is not blank")
-        val result = repository.searchFood(query.trim())
-        Log.d("SearchFood", "result: $result")
-        return result
+        return try {
+            val result = repository.searchFood(query.trim())
+            Log.d("SearchFood", "result: $result")
+            result
+        } catch (e: Exception) {
+            Log.e("SearchFood", "Error during search: $e")
+            Result.failure(e)
+        }
     }
 }

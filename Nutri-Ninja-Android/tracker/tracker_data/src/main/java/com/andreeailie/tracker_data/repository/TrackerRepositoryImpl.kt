@@ -1,6 +1,7 @@
 package com.andreeailie.tracker_data.repository
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.andreeailie.tracker_data.local.GroceryDao
 import com.andreeailie.tracker_data.local.TrackerDao
@@ -30,11 +31,15 @@ class TrackerRepositoryImpl(
         query: String
     ): Result<List<TrackableFood>> {
         return try {
+            Log.d("TrackerRepositoryImpl", "searchFood")
             val request = SearchFoodRequest(query = query)
+            Log.d("TrackerRepositoryImpl", "request: $request")
             val searchDto = api.searchFood(
                 request
             )
+            Log.d("TrackerRepositoryImpl", "searchDto: $searchDto")
             val result = searchDto.products.mapNotNull { it.toTrackableFood() }
+            Log.d("TrackerRepositoryImpl", "result: $result")
             Result.success(
                 result
             )

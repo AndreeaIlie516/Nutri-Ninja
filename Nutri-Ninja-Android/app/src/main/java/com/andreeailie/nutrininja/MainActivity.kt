@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,7 +25,6 @@ import com.andreeailie.onboarding_presentation.nutrient_goal.NutrientGoalScreen
 import com.andreeailie.onboarding_presentation.weight.WeightScreen
 import com.andreeailie.onboarding_presentation.welcome.WelcomeScreen
 import com.andreeailie.tracker_presentation.groceries_list.GroceriesListScreen
-//import com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryScreen
 import com.andreeailie.tracker_presentation.search.SearchScreen
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +37,6 @@ class MainActivity : ComponentActivity() {
     lateinit var preferences: Preferences
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-    @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val shouldShowOnboarding = preferences.loadShouldShowOnboarding()
