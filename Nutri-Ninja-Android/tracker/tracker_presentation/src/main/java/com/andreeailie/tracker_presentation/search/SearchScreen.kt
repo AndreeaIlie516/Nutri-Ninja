@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
@@ -57,6 +58,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -224,7 +226,7 @@ fun SearchScreen(
                 uploadResponse?.let { response ->
                     if (response.success) {
                         response.results?.forEach { result ->
-                            val tag = result.`class`
+                            val tag = identifiedItems.value[result.`class`]?.first ?: result.`class`
                             val quantity = identifiedItems.value[result.`class`]?.second ?: 100
                             identifiedItems.value =
                                 identifiedItems.value.toMutableMap().apply {
@@ -276,7 +278,7 @@ fun SearchScreen(
                             },
                             modifier = Modifier
                                 .align(Alignment.Center)
-                                .padding(top = 400.dp),
+                                .padding(top = 450.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = ButtonGreen)
                         ) {
                             Text("Save")
@@ -322,17 +324,17 @@ fun DrawAnimatedContours(coordinates: List<Int>) {
     Canvas(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 150.dp, start = 50.dp)
+            .padding(top = 200.dp, start = 30.dp)
     ) {
         val imageWidth = 350
         val imageHeight = 350
-        val scaleX = size.width / imageWidth
-        val scaleY = size.height / imageHeight
+        val scaleX = 480 / imageWidth * 1.5
+        val scaleY = 480 / imageHeight * 1.5
 
         val path = Path().apply {
-            moveTo(coordinates[0] * scaleX, coordinates[1] * scaleY)
+            moveTo((coordinates[0] * scaleX).toFloat(), (coordinates[1] * scaleY).toFloat())
             for (i in 2 until coordinates.size step 2) {
-                lineTo(coordinates[i] * scaleX, coordinates[i + 1] * scaleY)
+                lineTo((coordinates[i] * scaleX).toFloat(), (coordinates[i + 1] * scaleY).toFloat())
             }
             close()
         }
@@ -348,13 +350,8 @@ fun DrawTag(
     onTagChange: (String) -> Unit,
     onQuantityChange: (String) -> Unit
 ) {
-    val imageWidth = 350
-    val imageHeight = 350
-    val scaleX = imageWidth.toFloat() / imageWidth
-    val scaleY = imageHeight.toFloat() / imageHeight
-
-    val offsetX = coordinates[0] * scaleX
-    val offsetY = coordinates[1] * scaleY
+    val offsetX = coordinates[0]
+    val offsetY = coordinates[1]
 
     val tagWidth = 150.dp
     val tagHeight = 60.dp
@@ -365,7 +362,10 @@ fun DrawTag(
 
     Box(
         modifier = Modifier
-            .offset(x = offsetX.dp - tagWidth / 2, y = offsetY.dp - tagHeight - pointerHeight)
+            .offset(
+                x = offsetX.dp - tagWidth - 420.dp,
+                y = offsetY.dp - tagHeight - pointerHeight - 150.dp
+            )
     ) {
         Canvas(
             modifier = Modifier
@@ -404,19 +404,20 @@ fun DrawTag(
                     singleLine = true,
                     modifier = Modifier
                         .background(Color.White)
-                        .padding(end = spacing.spaceMedium)
+                        .padding(top = 2.dp, end = spacing.spaceMedium)
+                        .width(23.dp)
                 )
                 Text(
-                    text = " g",
+                    text = "g",
+                    textAlign = TextAlign.Left,
                     modifier = Modifier
                         .background(Color.White),
-                    fontSize = 16.sp
+                    fontSize = 14.sp
                 )
             }
         }
     }
 }
-
 
 fun getFileFromUri(context: Context, uri: Uri): File? {
     return try {
