@@ -2,9 +2,8 @@
 
 ## Overview
 
-Welcome to the **NutriNinja** repository! 
-This project is focused on enhancing dietary management through image processing machine learning techniques. 
-NutriNinja is an engaging nutrition-tracking application that uses semantic segmentation for precise food recognition and integrates this with a user-friendly mobile application to monitor and analyse daily nutritional intake.
+### Welcome to the **NutriNinja** repository! 
+### NutriNinja is an engaging nutrition-tracking application that uses semantic segmentation for food recognition and integrates this with a user-friendly mobile application to monitor and analyse daily nutritional intake.
 
 ## Screenshots
 
@@ -26,12 +25,12 @@ NutriNinja is an engaging nutrition-tracking application that uses semantic segm
 - **Real-Time Feedback**: Users receive immediate nutritional analysis as they log their meals, enabling them to make better dietary choices throughout the day.
 
 ### 3. Grocery List Automation
-- **Personalized Grocery Lists**: NutriNinja offers grocery list support, which will soon be updated to automatically generate based on the user’s meal logs from the previous week. The application will analyze food consumption patterns and suggest items to purchase, streamlining the meal planning process.
+- **Personalized Grocery Lists**: NutriNinja offers grocery list support, which will soon be updated to automatically generate based on the user’s meal logs from the previous week. The application will analyse food consumption patterns and suggest items to purchase.
 - **Editable Lists**: Users can review, edit, and customize their grocery lists, ensuring that all necessary ingredients are accounted for.
 
 ### 4. User-Friendly Interface
 - **Engaging Android App**: The mobile application is developed in Kotlin using Jetpack Compose, following the Model-View-ViewModel (MVVM) architecture. This design ensures a responsive, intuitive, and aesthetically pleasing user experience.
-- **Meal Logging Options**: Users can log meals manually by searching the database or uploading images for automatic recognition. The application allows for flexible meal tracking, accommodating different user preferences.
+- **Meal Logging Options**: Users can log meals manually by searching them or uploading images for automatic recognition. The application allows for flexible meal tracking, accommodating different user preferences.
 
 ### 5. Scalable Backend
 - **API-Driven Architecture**: The backend, developed using Golang with Gin and Python with Flask, handles user data management and meal logging and integrates with external APIs (such as FatSecret and Unsplash) to retrieve accurate nutritional data.
@@ -89,15 +88,11 @@ NutriNinja is designed with a layered architecture to ensure modularity and scal
       python app.py   # For the Flask-based APIs
       ```
 
-4. **Database Setup**:
-    - Set up PostgreSQL and create the necessary databases and tables.
-    - Migrate the database schema using the provided migration scripts.
-
-5. **Run the Application**:
+4. **Run the Application**:
     - Once all services are running, use the Android application to interact with the backend and start logging meals.
 
 ## Usage
 
 - **Tracker Screen**: Monitor daily calorie intake and macronutrients, with detailed logs for each meal.
 - **Search Screen**: Manually add meals via a search feature or use the image recognition module to automate the process.
-- **Grocery List**: Editable grocery list.
+- **Grocery List**: Modify grocery list as needed.
