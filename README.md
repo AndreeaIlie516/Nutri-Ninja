@@ -7,17 +7,19 @@ This project is focused on enhancing dietary management through image processing
 NutriNinja is an engaging nutrition-tracking application that uses semantic segmentation for precise food recognition and integrates this with a user-friendly mobile application to monitor and analyse daily nutritional intake.
 
 ## Screenshots
-![main_screen_1](https://github.com/user-attachments/assets/03f6fbff-0e43-4664-884c-500868f3f27e)
-![main_screen_2](https://github.com/user-attachments/assets/3ae407f8-da8d-4b18-b8a7-7db6902f3aae)
-![search_screen![search_screen_2](https://github.com/user-attachments/assets/f979b138-250f-480c-bc95-35b1f73f678c)
-_1](https://github.com/user-attachments/assets/c875ae45-3e19-4377-822b-8970663aa379)
 
+<img width="400" alt="Main_screen_1" src="https://github.com/user-attachments/assets/03f6fbff-0e43-4664-884c-500868f3f27e">
 
+<img width="400" alt="Main_screen_2" src="https://github.com/user-attachments/assets/3ae407f8-da8d-4b18-b8a7-7db6902f3aae">
+
+<img width="400" alt="Search_screen_1" src="https://github.com/user-attachments/assets/c875ae45-3e19-4377-822b-8970663aa379">
+
+<img width="400" alt="Search_screen_2" src="https://github.com/user-attachments/assets/bdf00d09-dad9-44a1-a09c-43f347c60ec6">
 
 ## Features
 
 ### 1. Image-Based Food Recognition
-- **Semantic Segmentation**: NutriNinja uses a deep learning model to identify and segment food items directly from user-uploaded images. This feature simplifies the meal-logging process by automatically detecting food types and quantities, reducing the need for manual data entry.
+- **Semantic Segmentation**: NutriNinja uses a deep learning model to identify and segment food items directly from user-uploaded images. This feature simplifies the meal-logging process by automatically detecting food types, reducing the need for manual data entry.
 
 ### 2. Automated Nutritional Analysis
 - **Comprehensive Nutritional Information**: After identifying food items, the application provides a detailed breakdown of calories, proteins, carbohydrates, and fats for each meal. This information helps users stay informed about their dietary habits.
