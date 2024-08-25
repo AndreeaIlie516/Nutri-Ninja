@@ -4,9 +4,13 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.andreeailie.tracker_data.local.GroceryDao
+import com.andreeailie.tracker_data.local.RecipeDao
 import com.andreeailie.tracker_data.local.TrackerDao
 import com.andreeailie.tracker_data.mapper.toGrocery
 import com.andreeailie.tracker_data.mapper.toGroceryEntity
+import com.andreeailie.tracker_data.mapper.toIngredientEntities
+import com.andreeailie.tracker_data.mapper.toRecipe
+import com.andreeailie.tracker_data.mapper.toRecipeEntity
 import com.andreeailie.tracker_data.mapper.toTrackableFood
 import com.andreeailie.tracker_data.mapper.toTrackedFood
 import com.andreeailie.tracker_data.mapper.toTrackedFoodEntity
@@ -14,7 +18,9 @@ import com.andreeailie.tracker_data.remote.CustomFoodApi
 import com.andreeailie.tracker_data.remote.dto.NutrientRequest
 import com.andreeailie.tracker_data.remote.dto.SearchFoodRequest
 import com.andreeailie.tracker_data.remote.dto.SearchGroceryRequest
+import com.andreeailie.tracker_data.remote.dto.SearchRecipeRequest
 import com.andreeailie.tracker_domain.model.Grocery
+import com.andreeailie.tracker_domain.model.Recipe
 import com.andreeailie.tracker_domain.model.TrackableFood
 import com.andreeailie.tracker_domain.model.TrackedFood
 import com.andreeailie.tracker_domain.repository.TrackerRepository
@@ -25,6 +31,7 @@ import java.time.LocalDate
 class TrackerRepositoryImpl(
     private val trackerDao: TrackerDao,
     private val groceryDao: GroceryDao,
+    private val recipeDao: RecipeDao,
     private val api: CustomFoodApi
 ) : TrackerRepository {
     override suspend fun searchFood(
@@ -125,5 +132,50 @@ class TrackerRepositoryImpl(
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun deleteGrocery(grocery: Grocery) {
         groceryDao.deleteGrocery(grocery.toGroceryEntity())
+    }
+
+    override suspend fun searchRecipe(query: String): Result<List<Recipe>> {
+        Log.d("TrackerRepositoryImpl", "searchRecipe")
+        return try {
+            val request = SearchRecipeRequest(query = query)
+            Log.d("TrackerRepositoryImpl", "request: $request")
+            val searchDto = api.searchRecipe(
+                request
+            )
+            Log.d("TrackerRepositoryImpl", "searchDto: $searchDto")
+            Log.d("TrackerRepositoryImpl", "searchDto recipes: ${searchDto.recipes}")
+            val result = searchDto.recipes.mapNotNull { it.toRecipe() }
+            Log.d("TrackerRepositoryImpl", "result: $result")
+            Result.success(
+                result
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Result.failure(e)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun getRecipes(): Flow<List<Recipe>> {
+        return recipeDao.getRecipes().map { recipeEntities ->
+            recipeEntities.map { recipeEntity ->
+                val ingredients =
+                    recipeDao.getRecipeWithIngredients(recipeEntity.recipeId).ingredients
+                recipeEntity.toRecipe(ingredients)
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun insertRecipe(recipe: Recipe) {
+        val recipeEntity = recipe.toRecipeEntity()
+        val ingredientEntities = recipe.toIngredientEntities()
+        recipeDao.addRecipeWithIngredients(recipeEntity, ingredientEntities)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun deleteRecipe(recipe: Recipe) {
+        recipeDao.deleteRecipe(recipe.toRecipeEntity())
     }
 }

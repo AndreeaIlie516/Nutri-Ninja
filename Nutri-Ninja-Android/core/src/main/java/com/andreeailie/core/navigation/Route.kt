@@ -14,5 +14,5 @@ object Route {
     const val SEARCH = "search"
     const val GROCERIES_LIST = "groceries_list"
     const val ADD_GROCERY = "add_grocery"
-//    const val PROFILE = "profile"
+    const val PROFILE = "profile"
 }

@@ -1,6 +1,7 @@
 package com.andreeailie.tracker_domain.repository
 
 import com.andreeailie.tracker_domain.model.Grocery
+import com.andreeailie.tracker_domain.model.Recipe
 import com.andreeailie.tracker_domain.model.TrackableFood
 import com.andreeailie.tracker_domain.model.TrackedFood
 import kotlinx.coroutines.flow.Flow
@@ -31,4 +32,12 @@ interface TrackerRepository {
     suspend fun insertGrocery(grocery: Grocery)
 
     suspend fun deleteGrocery(grocery: Grocery)
+
+    suspend fun searchRecipe(query: String): Result<List<Recipe>>
+
+    fun getRecipes(): Flow<List<Recipe>>
+
+    suspend fun insertRecipe(recipe: Recipe)
+
+    suspend fun deleteRecipe(recipe: Recipe)
 }

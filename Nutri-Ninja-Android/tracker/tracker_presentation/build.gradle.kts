@@ -72,6 +72,7 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.1.0")
     implementation(libs.play.services.cast.framework)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.places)
 
     "kapt"("com.google.dagger:hilt-android-compiler:2.49")
     "kapt"("androidx.hilt:hilt-compiler:1.2.0")

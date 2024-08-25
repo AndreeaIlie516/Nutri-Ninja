@@ -9,6 +9,7 @@ import com.andreeailie.tracker_presentation.groceries_list.GroceriesListScreen
 import com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel
+import com.andreeailie.user_presentation.ProfileScreen
 
 @Composable
 fun NavigationGraph(
@@ -30,6 +31,9 @@ fun NavigationGraph(
             )
         }
         composable(BottomNavItem.Profile.screenRoute) {
+            ProfileScreen(
+                onNavigate = { navController.navigate(it.route) }
+            )
         }
     }
 }

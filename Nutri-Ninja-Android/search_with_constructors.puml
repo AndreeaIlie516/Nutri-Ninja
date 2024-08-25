@@ -1,0 +1,91 @@
+@startuml
+left to right direction
+
+skinparam class {
+    BackgroundColor<<highlighted>> Yellow
+    BorderColor<<highlighted>> Orange
+    ArrowColor Black
+    ArrowThickness 1
+
+}
+
+' Define the package and arrange it vertically
+package "com.andreeailie.tracker_presentation.search" {
+
+    class FileUploadViewModel {
+        - _uploadResponse
+        + LiveData<UploadResponse> uploadResponse
+        + <<Create>> FileUploadViewModel(TrackerUseCases)
+        + void uploadImage(File)
+    }
+
+    class SearchState {
+        + <<Create>> SearchState(String, Boolean, Boolean, List<TrackableFoodUiState>)
+    }
+
+    class TrackableFoodUiState {
+        + <<Create>> TrackableFoodUiState(TrackableFood, Boolean, String)
+    }
+
+    class SearchEvent {
+    }
+
+    ' Arrange SearchEvent subclasses vertically
+    class SearchEvent$OnQueryChange {
+        + <<Create>> OnQueryChange(String)
+    }
+
+    class SearchEvent$OnSearch {
+    }
+
+    class SearchEvent$OnToggleTrackableFood {
+        + <<Create>> OnToggleTrackableFood(TrackableFood)
+    }
+
+    class SearchEvent$OnAmountForFoodChange {
+        + <<Create>> OnAmountForFoodChange(TrackableFood, String)
+    }
+
+    class SearchEvent$OnTrackFoodClick {
+        + <<Create>> OnTrackFoodClick(TrackableFood, MealType, LocalDate, String)
+    }
+
+    class SearchEvent$OnSearchFocusChange {
+        + <<Create>> OnSearchFocusChange(Boolean)
+    }
+
+    class SearchEvent$SaveIdentifiedItems {
+        + <<Create>> SaveIdentifiedItems(Map<String, Pair<String, Int>>, String, LocalDate, String)
+    }
+
+    class SearchViewModel {
+        + state
+        - _uiEvent
+        + uiEvent
+        + <<Create>> SearchViewModel(TrackerUseCases, FilterOutDigits)
+        + void onEvent(SearchEvent)
+        - void executeSearch(String, (List<TrackableFood>) -> Unit)
+        - void trackFood(SearchEvent.OnTrackFoodClick)
+        - void trackIdentifiedFood(SearchEvent.OnTrackFoodClick)
+        - void saveIdentifiedItems(Map<String, Pair<String, Int>>, String, LocalDate, String)
+    }
+}
+
+androidx.lifecycle.ViewModel <|-- FileUploadViewModel
+SearchEvent +.. SearchEvent$OnQueryChange
+SearchEvent <|-- SearchEvent$OnQueryChange
+SearchEvent +.. SearchEvent$OnSearch
+SearchEvent <|-- SearchEvent$OnSearch
+SearchEvent +.. SearchEvent$OnToggleTrackableFood
+SearchEvent <|-- SearchEvent$OnToggleTrackableFood
+SearchEvent +.. SearchEvent$OnAmountForFoodChange
+SearchEvent <|-- SearchEvent$OnAmountForFoodChange
+SearchEvent +.. SearchEvent$OnTrackFoodClick
+SearchEvent <|-- SearchEvent$OnTrackFoodClick
+SearchEvent +.. SearchEvent$OnSearchFocusChange
+SearchEvent <|-- SearchEvent$OnSearchFocusChange
+SearchEvent +.. SearchEvent$SaveIdentifiedItems
+SearchEvent <|-- SearchEvent$SaveIdentifiedItems
+androidx.lifecycle.ViewModel <|-- SearchViewModel
+
+@enduml

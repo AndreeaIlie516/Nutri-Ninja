@@ -125,7 +125,7 @@ constructor(
                             id = 0,
                             name = groceryName.value.text,
                             unit = groceryUnit.value.text,
-                            quantity = eventQuantity.value.text.toInt(),
+                            quantity = eventQuantity.value.text.toFloat(),
                             imageUrl = eventImageUrl.value.text,
                             isChecked = false
                         )

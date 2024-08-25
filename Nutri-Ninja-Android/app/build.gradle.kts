@@ -60,6 +60,7 @@ dependencies {
     implementation(project(":tracker:tracker_presentation"))
     implementation(project(":tracker:tracker_domain"))
     implementation(project(":tracker:tracker_data"))
+    implementation(project(":user:user_presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

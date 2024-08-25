@@ -27,6 +27,7 @@ import com.andreeailie.onboarding_presentation.welcome.WelcomeScreen
 import com.andreeailie.tracker_presentation.groceries_list.GroceriesListScreen
 import com.andreeailie.tracker_presentation.search.SearchScreen
 import com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewScreen
+import com.andreeailie.user_presentation.ProfileScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -132,9 +133,9 @@ class MainActivity : ComponentActivity() {
                         composable(Route.GROCERIES_LIST) {
                             GroceriesListScreen(onNavigate = navController::navigate)
                         }
-//                        composable(Route.ADD_GROCERY) {
-//                            AddEditGroceryScreen(onNavigate = navController::navigate)
-//                        }
+                        composable(Route.PROFILE) {
+                            ProfileScreen(onNavigate = navController::navigate)
+                        }
                     }
                 }
             }

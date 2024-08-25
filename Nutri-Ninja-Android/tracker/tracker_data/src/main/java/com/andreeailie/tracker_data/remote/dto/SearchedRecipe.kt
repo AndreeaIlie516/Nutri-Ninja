@@ -6,9 +6,11 @@ data class SearchedRecipe(
     val name: String,
     @field:Json(name = "image_url")
     val imageUrl: String?,
-    val ingredients: List<Triple<String, String, String>>,
+    val ingredients: List<List<String>>,
     @field:Json(name = "serving_size")
-    val servingSize: Float,
-    val servings: Int,
+    val servingSize: String,
+    val servings: String,
     val instructions: String,
+    @field:Json(name = "recipe_description")
+    val recipeDescription: String
 )

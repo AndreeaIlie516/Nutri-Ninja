@@ -1,0 +1,129 @@
+@startuml
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState {
++ <<Create>> GroceryTextFieldState(String,String,Boolean)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListState {
++ <<Create>> GroceryListState(List<Grocery>)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName {
++ <<Create>> EnteredName(String)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus {
++ <<Create>> ChangeNameFocus(FocusState)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl {
++ <<Create>> EnteredImageUrl(String)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus {
++ <<Create>> ChangeImageUrlFocus(FocusState)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit {
++ <<Create>> EnteredUnit(String)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus {
++ <<Create>> ChangeUnitFocus(FocusState)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity {
++ <<Create>> EnteredQuantity(String)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus {
++ <<Create>> ChangeQuantityFocus(FocusState)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick {
++ <<Create>> OnDeleteGroceryClick(Grocery)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick {
++ <<Create>> OnCheckGroceryClick(Grocery)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar {
++ <<Create>> ShowSnackbar(String)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel {
+-  _groceryName
++ State<GroceryTextFieldState> groceryName
+-  _groceryUnit
++ State<GroceryTextFieldState> groceryUnit
+-  _eventQuantity
++ State<GroceryTextFieldState> eventQuantity
+-  _eventImageUrl
++ State<GroceryTextFieldState> eventImageUrl
+-  _eventFlow
++  eventFlow
++ Int? currentGroceryId
++ <<Create>> AddEditGroceryViewModel(GroceryUseCases,SavedStateHandle)
++ void onEvent(AddEditGroceryEvent)
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel {
++  state
+-  _uiEvent
++  uiEvent
+- Job? getGroceriesJob
++ <<Create>> GroceryListViewModel(GroceryUseCases)
++ void onEvent(GroceryListEvent)
+- void refreshGroceries()
+}
+
+
+
+
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel
+@enduml

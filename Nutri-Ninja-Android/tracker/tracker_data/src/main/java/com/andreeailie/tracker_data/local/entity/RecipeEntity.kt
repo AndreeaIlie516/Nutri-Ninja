@@ -3,14 +3,13 @@ package com.andreeailie.tracker_data.local.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "recipes")
 data class RecipeEntity(
+    @PrimaryKey(autoGenerate = true) val recipeId: Int = 0,
     val name: String,
     val imageUrl: String?,
-    val ingredients: List<MutableMap<String, Int>>,
-    val servingSize: String,
+    val servingSize: Float,
     val servings: Int,
-    val type: String,
     val instructions: String,
-    @PrimaryKey val id: Int? = null
+    val description: String
 )

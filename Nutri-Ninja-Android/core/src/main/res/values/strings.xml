@@ -65,4 +65,5 @@
     <string name="groceries_list_screen">Groceries list</string>
     <string name="add_grocery_screen">Add Grocery</string>
     <string name="add_grocery_button_label">Add Grocery</string>
+    <string name="profile_screen">Your Profile</string>
 </resources>

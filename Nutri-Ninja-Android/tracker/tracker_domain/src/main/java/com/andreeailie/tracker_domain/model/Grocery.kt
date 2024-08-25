@@ -4,7 +4,7 @@ data class Grocery(
     val name: String,
     val imageUrl: String?,
     val unit: String,
-    val quantity: Int,
+    val quantity: Float,
     val isChecked: Boolean,
     val id: Int? = null
 )

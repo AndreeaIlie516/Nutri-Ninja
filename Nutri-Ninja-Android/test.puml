@@ -1,0 +1,1045 @@
+@startuml
+class com.andreeailie.tracker_presentation.components.NutrientInfoKt {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.MealKt {
+- {static} java.util.List<com.andreeailie.tracker_presentation.tracker_overview.Meal> defaultMeals
++ {static} java.util.List<com.andreeailie.tracker_presentation.tracker_overview.Meal> getDefaultMeals()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState {
+- java.lang.String text
+- java.lang.String hint
+- boolean isHintVisible
++ java.lang.String getText()
++ java.lang.String getHint()
++ boolean isHintVisible()
++ java.lang.String component1()
++ java.lang.String component2()
++ boolean component3()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState copy(java.lang.String,java.lang.String,boolean)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnQueryChange {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnSearch {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnToggleTrackableFood {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnAmountForFoodChange {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnTrackFoodClick {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnSearchFocusChange {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent$SaveIdentifiedItems {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent {
+}
+class com.andreeailie.tracker_presentation.search.SearchViewModel {
++  state
+-  _uiEvent
++  uiEvent
++ void onEvent(SearchEvent)
+- void executeSearch(String,(List<TrackableFood>) -> Unit)
+- void trackFood(SearchEvent.OnTrackFoodClick)
+- void trackIdentifiedFood(SearchEvent.OnTrackFoodClick)
+- void saveIdentifiedItems(Map<String, Pair<String, Int>>,String,LocalDate,String)
+}
+
+
+abstract class com.andreeailie.tracker_presentation.search.SearchEvent {
+}
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnAmountForFoodChange {
+- com.andreeailie.tracker_domain.model.TrackableFood food
+- java.lang.String amount
++ com.andreeailie.tracker_domain.model.TrackableFood getFood()
++ java.lang.String getAmount()
++ com.andreeailie.tracker_domain.model.TrackableFood component1()
++ java.lang.String component2()
++ com.andreeailie.tracker_presentation.search.SearchEvent.OnAmountForFoodChange copy(com.andreeailie.tracker_domain.model.TrackableFood,java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnQueryChange {
+- java.lang.String query
++ java.lang.String getQuery()
++ java.lang.String component1()
++ com.andreeailie.tracker_presentation.search.SearchEvent.OnQueryChange copy(java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnSearch {
++ {static} com.andreeailie.tracker_presentation.search.SearchEvent.OnSearch INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnSearchFocusChange {
+- boolean isFocused
++ boolean isFocused()
++ boolean component1()
++ com.andreeailie.tracker_presentation.search.SearchEvent.OnSearchFocusChange copy(boolean)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnToggleTrackableFood {
+- com.andreeailie.tracker_domain.model.TrackableFood food
++ com.andreeailie.tracker_domain.model.TrackableFood getFood()
++ com.andreeailie.tracker_domain.model.TrackableFood component1()
++ com.andreeailie.tracker_presentation.search.SearchEvent.OnToggleTrackableFood copy(com.andreeailie.tracker_domain.model.TrackableFood)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchEvent$OnTrackFoodClick {
+- com.andreeailie.tracker_domain.model.TrackableFood food
+- com.andreeailie.tracker_domain.model.MealType mealType
+- java.time.LocalDate date
+- java.lang.String unit
++ com.andreeailie.tracker_domain.model.TrackableFood getFood()
++ com.andreeailie.tracker_domain.model.MealType getMealType()
++ java.time.LocalDate getDate()
++ java.lang.String getUnit()
++ com.andreeailie.tracker_domain.model.TrackableFood component1()
++ com.andreeailie.tracker_domain.model.MealType component2()
++ java.time.LocalDate component3()
++ java.lang.String component4()
++ com.andreeailie.tracker_presentation.search.SearchEvent.OnTrackFoodClick copy(com.andreeailie.tracker_domain.model.TrackableFood,com.andreeailie.tracker_domain.model.MealType,java.time.LocalDate,java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchEvent$SaveIdentifiedItems {
+- java.util.Map<java.lang.String,kotlin.Pair<java.lang.String,java.lang.Integer>> identifiedItems
+- java.lang.String mealName
+- java.time.LocalDate date
+- java.lang.String unit
++ java.util.Map<java.lang.String,kotlin.Pair<java.lang.String,java.lang.Integer>> getIdentifiedItems()
++ java.lang.String getMealName()
++ java.time.LocalDate getDate()
++ java.lang.String getUnit()
++ java.util.Map<java.lang.String,kotlin.Pair<java.lang.String,java.lang.Integer>> component1()
++ java.lang.String component2()
++ java.time.LocalDate component3()
++ java.lang.String component4()
++ com.andreeailie.tracker_presentation.search.SearchEvent.SaveIdentifiedItems copy(java.util.Map<java.lang.String,kotlin.Pair<java.lang.String,java.lang.Integer>>,java.lang.String,java.time.LocalDate,java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel {
+- com.andreeailie.tracker_domain.use_case.GroceryUseCases groceryUseCases
+- androidx.compose.runtime.MutableState state$delegate
+- kotlinx.coroutines.channels.Channel<com.andreeailie.core.util.UiEvent> _uiEvent
+- kotlinx.coroutines.flow.Flow<com.andreeailie.core.util.UiEvent> uiEvent
+- kotlinx.coroutines.Job getGroceriesJob
++ com.andreeailie.tracker_presentation.groceries_list.GroceryListState getState()
++ void setState(com.andreeailie.tracker_presentation.groceries_list.GroceryListState)
++ kotlinx.coroutines.flow.Flow<com.andreeailie.core.util.UiEvent> getUiEvent()
++ void onEvent(com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent)
+- void refreshGroceries()
+}
+
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_groceries_list_add_grocery_AddEditGroceryViewModel_HiltModules_KeyModule {
+}
+class com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules_KeyModule_ProvideFactory {
++ String get()
++ {static} FileUploadViewModel_HiltModules_KeyModule_ProvideFactory create()
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder {
+- {static} FileUploadViewModel_HiltModules_KeyModule_ProvideFactory INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.components.TrackedFoodItemKt {
++ {static} void TrackedFoodItem(com.andreeailie.tracker_domain.model.TrackedFood,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.components.UserHeaderKt {
++ {static} void UserHeader(androidx.compose.ui.graphics.painter.Painter,java.lang.String,com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules_KeyModule_ProvideFactory {
++ String get()
++ {static} AddEditGroceryViewModel_HiltModules_KeyModule_ProvideFactory create()
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder {
+- {static} AddEditGroceryViewModel_HiltModules_KeyModule_ProvideFactory INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.components.NutrientBarInfoKt {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_Factory {
+- Provider<Preferences> preferencesProvider
+- Provider<TrackerUseCases> trackerUseCasesProvider
++ TrackerOverviewViewModel get()
++ {static} TrackerOverviewViewModel_Factory create(Provider<Preferences>,Provider<TrackerUseCases>)
++ {static} TrackerOverviewViewModel newInstance(Preferences,TrackerUseCases)
+}
+
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent {
+}
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_search_SearchViewModel_HiltModules_BindsModule {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState {
+- int totalCarbs
+- int totalProtein
+- int totalFat
+- int totalCalories
+- int carbsGoal
+- int proteinGoal
+- int fatGoal
+- int caloriesGoal
+- java.time.LocalDate date
+- java.util.List<com.andreeailie.tracker_domain.model.TrackedFood> trackedFoods
+- java.util.List<com.andreeailie.tracker_presentation.tracker_overview.Meal> meals
++ int getTotalCarbs()
++ int getTotalProtein()
++ int getTotalFat()
++ int getTotalCalories()
++ int getCarbsGoal()
++ int getProteinGoal()
++ int getFatGoal()
++ int getCaloriesGoal()
++ java.time.LocalDate getDate()
++ java.util.List<com.andreeailie.tracker_domain.model.TrackedFood> getTrackedFoods()
++ java.util.List<com.andreeailie.tracker_presentation.tracker_overview.Meal> getMeals()
++ int component1()
++ java.util.List<com.andreeailie.tracker_domain.model.TrackedFood> component10()
++ java.util.List<com.andreeailie.tracker_presentation.tracker_overview.Meal> component11()
++ int component2()
++ int component3()
++ int component4()
++ int component5()
++ int component6()
++ int component7()
++ int component8()
++ java.time.LocalDate component9()
++ com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState copy(int,int,int,int,int,int,int,int,java.time.LocalDate,java.util.List<com.andreeailie.tracker_domain.model.TrackedFood>,java.util.List<com.andreeailie.tracker_presentation.tracker_overview.Meal>)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel {
++  state
+-  _uiEvent
++  uiEvent
+- Job? getGroceriesJob
++ void onEvent(GroceryListEvent)
+- void refreshGroceries()
+}
+
+
+class com.andreeailie.tracker_presentation.components.DismissBackgroundKt {
++ {static} void DismissBackground(androidx.compose.material3.DismissState)
+}
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_groceries_list_GroceryListViewModel_HiltModules_BindsModule {
+}
+class com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules_KeyModule_ProvideFactory {
++ String get()
++ {static} SearchViewModel_HiltModules_KeyModule_ProvideFactory create()
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder {
+- {static} SearchViewModel_HiltModules_KeyModule_ProvideFactory INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.components.ConfirmationDialogKt {
++ {static} void ShowConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.jvm.functions.Function0<kotlin.Unit>)
+}
+
+class com.andreeailie.tracker_presentation.components.UnitDisplayKt {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceriesListScreenKt {
++ {static} void GroceriesListScreen(kotlin.jvm.functions.Function1<? super com.andreeailie.core.util.UiEvent.Navigate,kotlin.Unit>,com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel)
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.components.NutrientsBoxKt {
++ {static} void NutrientsBox(com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules_KeyModule_ProvideFactory {
++ String get()
++ {static} GroceryListViewModel_HiltModules_KeyModule_ProvideFactory create()
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder {
+- {static} GroceryListViewModel_HiltModules_KeyModule_ProvideFactory INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.ExampleInstrumentedTest {
++ void useAppContext()
+}
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_search_FileUploadViewModel_HiltModules_KeyModule {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListState {
+- java.util.List<com.andreeailie.tracker_domain.model.Grocery> groceries
++ java.util.List<com.andreeailie.tracker_domain.model.Grocery> getGroceries()
++ java.util.List<com.andreeailie.tracker_domain.model.Grocery> component1()
++ com.andreeailie.tracker_presentation.groceries_list.GroceryListState copy(java.util.List<com.andreeailie.tracker_domain.model.Grocery>)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_Factory {
+- Provider<GroceryUseCases> groceryUseCasesProvider
++ GroceryListViewModel get()
++ {static} GroceryListViewModel_Factory create(Provider<GroceryUseCases>)
++ {static} GroceryListViewModel newInstance(GroceryUseCases)
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.components.DeleteGroceryKt {
++ {static} void DeleteGrocery(androidx.compose.ui.Modifier,com.andreeailie.tracker_domain.model.Grocery,kotlin.jvm.functions.Function1<? super com.andreeailie.tracker_domain.model.Grocery,kotlin.Unit>,kotlin.jvm.functions.Function1<? super com.andreeailie.tracker_domain.model.Grocery,kotlin.Unit>)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel {
+-  _groceryName
++ State<GroceryTextFieldState> groceryName
+-  _groceryUnit
++ State<GroceryTextFieldState> groceryUnit
+-  _eventQuantity
++ State<GroceryTextFieldState> eventQuantity
+-  _eventImageUrl
++ State<GroceryTextFieldState> eventImageUrl
+-  _eventFlow
++  eventFlow
++ Int? currentGroceryId
++ void onEvent(AddEditGroceryEvent)
+}
+
+
+class com.andreeailie.tracker_presentation.search.FileUploadViewModel_Factory {
+- Provider<TrackerUseCases> trackerUseCasesProvider
++ FileUploadViewModel get()
++ {static} FileUploadViewModel_Factory create(Provider<TrackerUseCases>)
++ {static} FileUploadViewModel newInstance(TrackerUseCases)
+}
+
+
+abstract class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus {
+- androidx.compose.ui.focus.FocusState focusState
++ androidx.compose.ui.focus.FocusState getFocusState()
++ androidx.compose.ui.focus.FocusState component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.ChangeImageUrlFocus copy(androidx.compose.ui.focus.FocusState)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus {
+- androidx.compose.ui.focus.FocusState focusState
++ androidx.compose.ui.focus.FocusState getFocusState()
++ androidx.compose.ui.focus.FocusState component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.ChangeNameFocus copy(androidx.compose.ui.focus.FocusState)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus {
+- androidx.compose.ui.focus.FocusState focusState
++ androidx.compose.ui.focus.FocusState getFocusState()
++ androidx.compose.ui.focus.FocusState component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.ChangeQuantityFocus copy(androidx.compose.ui.focus.FocusState)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus {
+- androidx.compose.ui.focus.FocusState focusState
++ androidx.compose.ui.focus.FocusState getFocusState()
++ androidx.compose.ui.focus.FocusState component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.ChangeUnitFocus copy(androidx.compose.ui.focus.FocusState)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl {
+- java.lang.String value
++ java.lang.String getValue()
++ java.lang.String component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.EnteredImageUrl copy(java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName {
+- java.lang.String value
++ java.lang.String getValue()
++ java.lang.String component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.EnteredName copy(java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity {
+- java.lang.String value
++ java.lang.String getValue()
++ java.lang.String component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.EnteredQuantity copy(java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit {
+- java.lang.String value
++ java.lang.String getValue()
++ java.lang.String component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.EnteredUnit copy(java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent {
++ {static} com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent.SaveNewEvent INSTANCE
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules {
+}
+abstract class com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules$BindsModule {
++ {abstract}ViewModel binds(SearchViewModel)
+}
+
+class com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules$KeyModule {
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.search.TrackableFoodUiState {
+}
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_groceries_list_GroceryListViewModel_HiltModules_KeyModule {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules {
+}
+abstract class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules$BindsModule {
++ {abstract}ViewModel binds(AddEditGroceryViewModel)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules$KeyModule {
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.Meal {
+- com.andreeailie.core.util.UiText name
+- int drawableRes
+- com.andreeailie.tracker_domain.model.MealType mealType
+- int carbs
+- int protein
+- int fat
+- int calories
+- boolean isExpanded
++ com.andreeailie.core.util.UiText getName()
++ int getDrawableRes()
++ com.andreeailie.tracker_domain.model.MealType getMealType()
++ int getCarbs()
++ int getProtein()
++ int getFat()
++ int getCalories()
++ boolean isExpanded()
++ com.andreeailie.core.util.UiText component1()
++ int component2()
++ com.andreeailie.tracker_domain.model.MealType component3()
++ int component4()
++ int component5()
++ int component6()
++ int component7()
++ boolean component8()
++ com.andreeailie.tracker_presentation.tracker_overview.Meal copy(com.andreeailie.core.util.UiText,int,com.andreeailie.tracker_domain.model.MealType,int,int,int,int,boolean)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel {
+- com.andreeailie.tracker_domain.use_case.TrackerUseCases trackerUseCases
+- androidx.compose.runtime.MutableState state$delegate
+- kotlinx.coroutines.channels.Channel<com.andreeailie.core.util.UiEvent> _uiEvent
+- kotlinx.coroutines.flow.Flow<com.andreeailie.core.util.UiEvent> uiEvent
+- kotlinx.coroutines.Job getFoodsForDateJob
++ com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState getState()
+- void setState(com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState)
++ kotlinx.coroutines.flow.Flow<com.andreeailie.core.util.UiEvent> getUiEvent()
++ void onEvent(com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent)
+- void refreshFoods()
+}
+
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewScreenKt {
++ {static} void TrackerOverviewScreen(kotlin.jvm.functions.Function1<? super com.andreeailie.core.util.UiEvent.Navigate,kotlin.Unit>,com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel)
+}
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_search_FileUploadViewModel_HiltModules_BindsModule {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.Meal {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.components.DaySelectorKt {
++ {static} void DaySelector(java.time.LocalDate,kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.jvm.functions.Function0<kotlin.Unit>,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules {
+}
+abstract class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules$BindsModule {
++ {abstract}ViewModel binds(GroceryListViewModel)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules$KeyModule {
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules_KeyModule_ProvideFactory {
++ String get()
++ {static} TrackerOverviewViewModel_HiltModules_KeyModule_ProvideFactory create()
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder {
+- {static} TrackerOverviewViewModel_HiltModules_KeyModule_ProvideFactory INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel {
+- com.andreeailie.tracker_domain.use_case.GroceryUseCases groceryUseCases
+- androidx.compose.runtime.MutableState<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> _groceryName
+- androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> groceryName
+- androidx.compose.runtime.MutableState<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> _groceryUnit
+- androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> groceryUnit
+- androidx.compose.runtime.MutableState<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> _eventQuantity
+- androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> eventQuantity
+- androidx.compose.runtime.MutableState<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> _eventImageUrl
+- androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> eventImageUrl
+- kotlinx.coroutines.flow.MutableSharedFlow<com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel.UiEvent> _eventFlow
+- kotlinx.coroutines.flow.SharedFlow<com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel.UiEvent> eventFlow
+- java.lang.Integer currentGroceryId
++ androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> getGroceryName()
++ androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> getGroceryUnit()
++ androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> getEventQuantity()
++ androidx.compose.runtime.State<com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState> getEventImageUrl()
++ kotlinx.coroutines.flow.SharedFlow<com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel.UiEvent> getEventFlow()
++ java.lang.Integer getCurrentGroceryId()
++ void setCurrentGroceryId(java.lang.Integer)
++ void onEvent(com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent)
+}
+
+
+abstract class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent {
++ {static} com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel.UiEvent.SaveNewEvent INSTANCE
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar {
+- java.lang.String message
++ java.lang.String getMessage()
++ java.lang.String component1()
++ com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel.UiEvent.ShowSnackbar copy(java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchState {
+- java.lang.String query
+- boolean isHintVisible
+- boolean isSearching
+- java.util.List<com.andreeailie.tracker_presentation.search.TrackableFoodUiState> trackableFood
++ java.lang.String getQuery()
++ boolean isHintVisible()
++ boolean isSearching()
++ java.util.List<com.andreeailie.tracker_presentation.search.TrackableFoodUiState> getTrackableFood()
++ java.lang.String component1()
++ boolean component2()
++ boolean component3()
++ java.util.List<com.andreeailie.tracker_presentation.search.TrackableFoodUiState> component4()
++ com.andreeailie.tracker_presentation.search.SearchState copy(java.lang.String,boolean,boolean,java.util.List<com.andreeailie.tracker_presentation.search.TrackableFoodUiState>)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_tracker_overview_TrackerOverviewViewModel_HiltModules_KeyModule {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState {
+}
+class error.NonExistentClass {
+}
+class com.andreeailie.tracker_presentation.groceries_list.components.GroceryItemKt {
++ {static} void GroceryItem(androidx.compose.ui.Modifier,com.andreeailie.tracker_domain.model.Grocery,kotlin.jvm.functions.Function1<? super com.andreeailie.tracker_domain.model.Grocery,kotlin.Unit>)
+}
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_tracker_overview_TrackerOverviewViewModel_HiltModules_BindsModule {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.components.AddButtonKt {
+}
+class com.andreeailie.tracker_presentation.search.FileUploadScreenKt {
++ {static} void FileUploadScreen(androidx.compose.material.ScaffoldState,java.lang.String,int,int,int,kotlin.jvm.functions.Function0<kotlin.Unit>,com.andreeailie.tracker_presentation.search.SearchViewModel,com.andreeailie.tracker_presentation.search.FileUploadViewModel)
+}
+
+class com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules {
+}
+abstract class com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules$BindsModule {
++ {abstract}ViewModel binds(FileUploadViewModel)
+}
+
+class com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules$KeyModule {
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.search.FileUploadViewModel {
+- com.andreeailie.tracker_domain.use_case.TrackerUseCases trackerUseCases
+- androidx.lifecycle.MutableLiveData<com.andreeailie.tracker_domain.model.UploadResponse> _uploadResponse
+- androidx.lifecycle.LiveData<com.andreeailie.tracker_domain.model.UploadResponse> uploadResponse
++ androidx.lifecycle.LiveData<com.andreeailie.tracker_domain.model.UploadResponse> getUploadResponse()
++ void uploadImage(java.io.File)
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_Factory {
+- Provider<GroceryUseCases> groceryUseCasesProvider
+- Provider<SavedStateHandle> savedStateHandleProvider
++ AddEditGroceryViewModel get()
++ {static} AddEditGroceryViewModel_Factory create(Provider<GroceryUseCases>,Provider<SavedStateHandle>)
++ {static} AddEditGroceryViewModel newInstance(GroceryUseCases,SavedStateHandle)
+}
+
+
+abstract class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent {
+}
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick {
++ {static} com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent.OnAddGroceryClick INSTANCE
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick {
+- com.andreeailie.tracker_domain.model.Grocery grocery
++ com.andreeailie.tracker_domain.model.Grocery getGrocery()
++ com.andreeailie.tracker_domain.model.Grocery component1()
++ com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent.OnCheckGroceryClick copy(com.andreeailie.tracker_domain.model.Grocery)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick {
+- com.andreeailie.tracker_domain.model.Grocery grocery
++ com.andreeailie.tracker_domain.model.Grocery getGrocery()
++ com.andreeailie.tracker_domain.model.Grocery component1()
++ com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent.OnDeleteGroceryClick copy(com.andreeailie.tracker_domain.model.Grocery)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.tracker_overview.components.MealsItemsKt {
++ {static} void MealItems(java.util.List<com.andreeailie.tracker_presentation.tracker_overview.Meal>,java.util.List<com.andreeailie.tracker_domain.model.TrackedFood>,kotlin.jvm.functions.Function1<? super com.andreeailie.tracker_presentation.tracker_overview.Meal,kotlin.Unit>,kotlin.jvm.functions.Function1<? super com.andreeailie.tracker_domain.model.TrackedFood,kotlin.Unit>,kotlin.jvm.functions.Function1<? super com.andreeailie.tracker_presentation.tracker_overview.Meal,kotlin.Unit>,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.search.SearchScreenKt {
++ {static} void SearchScreen(androidx.compose.material.ScaffoldState,java.lang.String,int,int,int,kotlin.jvm.functions.Function0<kotlin.Unit>,com.andreeailie.tracker_presentation.search.SearchViewModel,com.andreeailie.tracker_presentation.search.FileUploadViewModel)
++ {static} void DrawAnimatedContours(java.util.List<java.lang.Integer>)
++ {static} void DrawTag(java.lang.String,int,java.util.List<java.lang.Integer>,kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit>,kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit>)
++ {static} java.io.File getFileFromUri(android.content.Context,android.net.Uri)
+}
+
+abstract class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick {
+- com.andreeailie.tracker_presentation.tracker_overview.Meal meal
++ com.andreeailie.tracker_presentation.tracker_overview.Meal getMeal()
++ com.andreeailie.tracker_presentation.tracker_overview.Meal component1()
++ com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent.OnAddFoodClick copy(com.andreeailie.tracker_presentation.tracker_overview.Meal)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick {
+- com.andreeailie.tracker_domain.model.TrackedFood trackedFood
++ com.andreeailie.tracker_domain.model.TrackedFood getTrackedFood()
++ com.andreeailie.tracker_domain.model.TrackedFood component1()
++ com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent.OnDeleteTrackedFoodClick copy(com.andreeailie.tracker_domain.model.TrackedFood)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick {
++ {static} com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent.OnNextDayClick INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick {
++ {static} com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent.OnPreviousDayClick INSTANCE
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick {
+- com.andreeailie.tracker_presentation.tracker_overview.Meal meal
++ com.andreeailie.tracker_presentation.tracker_overview.Meal getMeal()
++ com.andreeailie.tracker_presentation.tracker_overview.Meal component1()
++ com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent.OnToggleMealClick copy(com.andreeailie.tracker_presentation.tracker_overview.Meal)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.tracker_overview.components.ExpandableMealKt {
++ {static} void ExpandableMeal(com.andreeailie.tracker_presentation.tracker_overview.Meal,kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.jvm.functions.Function0<kotlin.Unit>,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.components.AddGroceryButtonKt {
++ {static} void AddGroceryButton(kotlin.jvm.functions.Function0<kotlin.Unit>,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.search.SearchViewModel {
+- com.andreeailie.tracker_domain.use_case.TrackerUseCases trackerUseCases
+- com.andreeailie.core.domain.use_case.FilterOutDigits filterOutDigits
+- androidx.compose.runtime.MutableState state$delegate
+- kotlinx.coroutines.channels.Channel<com.andreeailie.core.util.UiEvent> _uiEvent
+- kotlinx.coroutines.flow.Flow<com.andreeailie.core.util.UiEvent> uiEvent
++ com.andreeailie.tracker_presentation.search.SearchState getState()
+- void setState(com.andreeailie.tracker_presentation.search.SearchState)
++ kotlinx.coroutines.flow.Flow<com.andreeailie.core.util.UiEvent> getUiEvent()
++ void onEvent(com.andreeailie.tracker_presentation.search.SearchEvent)
+- void executeSearch(java.lang.String,kotlin.jvm.functions.Function1<? super java.util.List<com.andreeailie.tracker_domain.model.TrackableFood>,kotlin.Unit>)
+- void trackFood(com.andreeailie.tracker_presentation.search.SearchEvent.OnTrackFoodClick)
+- void trackIdentifiedFood(com.andreeailie.tracker_presentation.search.SearchEvent.OnTrackFoodClick)
+- void saveIdentifiedItems(java.util.Map<java.lang.String,kotlin.Pair<java.lang.String,java.lang.Integer>>,java.lang.String,java.time.LocalDate,java.lang.String)
+}
+
+
+class com.andreeailie.tracker_presentation.search.TrackableFoodUiState {
+- com.andreeailie.tracker_domain.model.TrackableFood food
+- boolean isExpanded
+- java.lang.String amount
++ com.andreeailie.tracker_domain.model.TrackableFood getFood()
++ boolean isExpanded()
++ java.lang.String getAmount()
++ com.andreeailie.tracker_domain.model.TrackableFood component1()
++ boolean component2()
++ java.lang.String component3()
++ com.andreeailie.tracker_presentation.search.TrackableFoodUiState copy(com.andreeailie.tracker_domain.model.TrackableFood,boolean,java.lang.String)
++ boolean equals(java.lang.Object)
++ int hashCode()
++ java.lang.String toString()
+}
+
+
+class com.andreeailie.tracker_presentation.search.components.TrackableFoodItemKt {
++ {static} void TrackableFoodItem(com.andreeailie.tracker_presentation.search.TrackableFoodUiState,kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit>,kotlin.jvm.functions.Function0<kotlin.Unit>,androidx.compose.ui.Modifier)
+}
+
+class com.andreeailie.tracker_presentation.search.components.SearchTextFieldKt {
++ {static} void SearchTextField(java.lang.String,kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit>,kotlin.jvm.functions.Function0<kotlin.Unit>,kotlin.jvm.functions.Function0<kotlin.Unit>,androidx.compose.ui.Modifier,java.lang.String,boolean,kotlin.jvm.functions.Function1<? super androidx.compose.ui.focus.FocusState,kotlin.Unit>)
+}
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_groceries_list_add_grocery_AddEditGroceryViewModel_HiltModules_BindsModule {
+}
+class com.andreeailie.tracker_presentation.ExampleUnitTest {
++ void addition_isCorrect()
+}
+
+class com.andreeailie.tracker_presentation.groceries_list.GroceryListState {
+}
+class com.andreeailie.tracker_presentation.groceries_list.add_grocery.GroceryTextFieldState {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules {
+}
+abstract class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules$BindsModule {
++ {abstract}ViewModel binds(TrackerOverviewViewModel)
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules$KeyModule {
++ {static} String provide()
+}
+
+class com.andreeailie.tracker_presentation.search.FileUploadViewModel {
+-  _uploadResponse
++ LiveData<UploadResponse> uploadResponse
++ void uploadImage(File)
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchState {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.components.ParseDateTextKt {
++ {static} java.lang.String parseDateText(java.time.LocalDate)
+}
+
+class hilt_aggregated_deps._com_andreeailie_tracker_presentation_search_SearchViewModel_HiltModules_KeyModule {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.components.DeleteTrackedFoodKt {
++ {static} void DeleteTrackedFood(androidx.compose.ui.Modifier,com.andreeailie.tracker_domain.model.TrackedFood,kotlin.jvm.functions.Function1<? super com.andreeailie.tracker_domain.model.TrackedFood,kotlin.Unit>)
+}
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel {
++  state
+-  _uiEvent
++  uiEvent
+- Job? getFoodsForDateJob
++ void onEvent(TrackerOverviewEvent)
+- void refreshFoods()
+}
+
+
+class com.andreeailie.tracker_presentation.search.SearchViewModel_Factory {
+- Provider<TrackerUseCases> trackerUseCasesProvider
+- Provider<FilterOutDigits> filterOutDigitsProvider
++ SearchViewModel get()
++ {static} SearchViewModel_Factory create(Provider<TrackerUseCases>,Provider<FilterOutDigits>)
++ {static} SearchViewModel newInstance(TrackerUseCases,FilterOutDigits)
+}
+
+
+
+
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnQueryChange
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnQueryChange
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnSearch
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnSearch
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnToggleTrackableFood
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnToggleTrackableFood
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnAmountForFoodChange
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnAmountForFoodChange
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnTrackFoodClick
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnTrackFoodClick
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnSearchFocusChange
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnSearchFocusChange
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$SaveIdentifiedItems
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$SaveIdentifiedItems
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.search.SearchViewModel
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnAmountForFoodChange
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnAmountForFoodChange
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnQueryChange
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnQueryChange
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnSearch
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnSearch
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnSearchFocusChange
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnSearchFocusChange
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnToggleTrackableFood
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnToggleTrackableFood
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$OnTrackFoodClick
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$OnTrackFoodClick
+com.andreeailie.tracker_presentation.search.SearchEvent +.. com.andreeailie.tracker_presentation.search.SearchEvent$SaveIdentifiedItems
+com.andreeailie.tracker_presentation.search.SearchEvent <|-- com.andreeailie.tracker_presentation.search.SearchEvent$SaveIdentifiedItems
+com.andreeailie.tracker_presentation.groceries_list.ViewModel <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules_KeyModule_ProvideFactory
+com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules_KeyModule_ProvideFactory +.. com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules_KeyModule_ProvideFactory
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules_KeyModule_ProvideFactory +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_Factory
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules_KeyModule_ProvideFactory
+com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules_KeyModule_ProvideFactory +.. com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules_KeyModule_ProvideFactory
+com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules_KeyModule_ProvideFactory +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_Factory
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.search.FileUploadViewModel_Factory
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules +.. com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules$BindsModule
+com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules +.. com.andreeailie.tracker_presentation.search.SearchViewModel_HiltModules$KeyModule
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules$BindsModule
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_HiltModules$KeyModule
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredName
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeNameFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredImageUrl
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeImageUrlFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredUnit
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeUnitFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$EnteredQuantity
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$ChangeQuantityFocus
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick
+com.andreeailie.tracker_presentation.tracker_overview.ViewModel <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel
+com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules$BindsModule
+com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListViewModel_HiltModules$KeyModule
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules_KeyModule_ProvideFactory
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules_KeyModule_ProvideFactory +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.ViewModel <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$SaveNewEvent
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent +.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.groceries_list.add_grocery.UiEvent <|-- com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel$UiEvent$ShowSnackbar
+com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules +.. com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules$BindsModule
+com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules +.. com.andreeailie.tracker_presentation.search.FileUploadViewModel_HiltModules$KeyModule
+com.andreeailie.tracker_presentation.search.ViewModel <|-- com.andreeailie.tracker_presentation.search.FileUploadViewModel
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.groceries_list.add_grocery.AddEditGroceryViewModel_Factory
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnAddGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnCheckGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent +.. com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick
+com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent <|-- com.andreeailie.tracker_presentation.groceries_list.GroceryListEvent$OnDeleteGroceryClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick
+com.andreeailie.tracker_presentation.search.ViewModel <|-- com.andreeailie.tracker_presentation.search.SearchViewModel
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules$BindsModule
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel_HiltModules$KeyModule
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.search.FileUploadViewModel
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel
+dagger.internal.Factory <|.. com.andreeailie.tracker_presentation.search.SearchViewModel_Factory
+@enduml

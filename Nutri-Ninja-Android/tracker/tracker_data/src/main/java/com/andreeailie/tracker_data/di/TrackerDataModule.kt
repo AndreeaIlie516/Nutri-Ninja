@@ -3,6 +3,7 @@ package com.andreeailie.tracker_data.di
 import android.app.Application
 import androidx.room.Room
 import com.andreeailie.tracker_data.local.GroceryDatabase
+import com.andreeailie.tracker_data.local.RecipeDatabase
 import com.andreeailie.tracker_data.local.TrackerDatabase
 import com.andreeailie.tracker_data.remote.CustomFoodApi
 import com.andreeailie.tracker_data.remote.FileUploadApi
@@ -43,6 +44,18 @@ object TrackerDataModule {
             )
             .build()
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideNutriNinjaApi(client: OkHttpClient): NutriNinjaApi {
+//        return Retrofit.Builder()
+//            .baseUrl(NutriNinjaApi.BASE_URL)
+//            .addConverterFactory(MoshiConverterFactory.create())
+//            .client(client)
+//            .build()
+//            .create()
+//    }
+
 
     @Provides
     @Singleton
@@ -100,14 +113,36 @@ object TrackerDataModule {
 
     @Provides
     @Singleton
+    fun provideRecipeDatabase(app: Application): RecipeDatabase {
+        return Room.databaseBuilder(
+            app,
+            RecipeDatabase::class.java,
+            "recipe_db"
+        ).build()
+    }
+
+//    @Provides
+//    @Singleton
+//    fun provideNutriNinjaDatabase(app: Application): NutriNinjaDatabase {
+//        return Room.databaseBuilder(
+//            app,
+//            NutriNinjaDatabase::class.java,
+//            "nutri_ninja_db"
+//        ).build()
+//    }
+
+    @Provides
+    @Singleton
     fun provideTrackerRepository(
         api: CustomFoodApi,
         trackerDatabase: TrackerDatabase,
-        groceryDatabase: GroceryDatabase
+        groceryDatabase: GroceryDatabase,
+        recipeDatabase: RecipeDatabase
     ): TrackerRepository {
         return TrackerRepositoryImpl(
             trackerDao = trackerDatabase.dao,
             groceryDao = groceryDatabase.dao,
+            recipeDao = recipeDatabase.dao,
             api = api
         )
     }
@@ -131,4 +166,16 @@ object TrackerDataModule {
             api = api
         )
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideNutriNinjaRepository(
+//        api: NutriNinjaApi,
+//        nutriNinjaDatabase: NutriNinjaDatabase,
+//    ): NutriNinjaRepository {
+//        return NutriNinjaRepositoryImpl(
+//            nutriNinjaDao = nutriNinjaDatabase.dao,
+//            api = api
+//        )
+//    }
 }

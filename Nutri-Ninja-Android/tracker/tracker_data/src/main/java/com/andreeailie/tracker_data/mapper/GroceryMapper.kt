@@ -11,7 +11,7 @@ fun SearchedGrocery.toGrocery(): Grocery {
         name = name,
         imageUrl = imageUrl ?: "",
         unit = unit,
-        quantity = quantity,
+        quantity = quantity.toFloat(),
         isChecked = isChecked
     )
 }

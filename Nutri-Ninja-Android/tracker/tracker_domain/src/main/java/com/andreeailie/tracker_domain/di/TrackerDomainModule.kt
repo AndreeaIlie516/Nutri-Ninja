@@ -10,8 +10,10 @@ import com.andreeailie.tracker_domain.use_case.DeleteTrackedFood
 import com.andreeailie.tracker_domain.use_case.GetFoodsForDate
 import com.andreeailie.tracker_domain.use_case.GetGroceries
 import com.andreeailie.tracker_domain.use_case.GroceryUseCases
+import com.andreeailie.tracker_domain.use_case.RecipeUseCases
 import com.andreeailie.tracker_domain.use_case.SearchFood
 import com.andreeailie.tracker_domain.use_case.SearchGrocery
+import com.andreeailie.tracker_domain.use_case.SearchRecipe
 import com.andreeailie.tracker_domain.use_case.ToggleGroceryStatus
 import com.andreeailie.tracker_domain.use_case.TrackFood
 import com.andreeailie.tracker_domain.use_case.TrackerUseCases
@@ -55,6 +57,16 @@ object TrackerDomainModule {
             searchGrocery = SearchGrocery(repository),
             getGroceries = GetGroceries(repository),
             toggleGroceryStatus = ToggleGroceryStatus(repository),
+        )
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideRecipesUseCases(
+        repository: TrackerRepository,
+    ): RecipeUseCases {
+        return RecipeUseCases(
+            searchRecipe = SearchRecipe(repository),
         )
     }
 }

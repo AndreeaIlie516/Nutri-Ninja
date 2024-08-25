@@ -1,0 +1,41 @@
+@startuml
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.Meal {
+}
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel {
++  state
+-  _uiEvent
++  uiEvent
+- Job? getFoodsForDateJob
++ void onEvent(TrackerOverviewEvent)
+- void refreshFoods()
+}
+
+
+class com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewState {
+}
+
+
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnNextDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnPreviousDayClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnToggleMealClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnDeleteTrackedFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent +.. com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick
+com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewEvent$OnAddFoodClick
+androidx.lifecycle.ViewModel <|-- com.andreeailie.tracker_presentation.tracker_overview.TrackerOverviewViewModel
+@enduml
