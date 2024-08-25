@@ -95,8 +95,4 @@ NutriNinja is designed with a layered architecture to ensure modularity and scal
 
 - **Tracker Screen**: Monitor daily calorie intake and macronutrients, with detailed logs for each meal.
 - **Search Screen**: Manually add meals via a search feature or use the image recognition module to automate the process.
-<<<<<<< HEAD
 - **Grocery List**: Modify grocery list as needed.
-=======
-- **Grocery List**: Modify grocery list as needed.
->>>>>>> ab1cb9ef8ae5dc4b0abeb3b0efaa7a484ba22d8a
