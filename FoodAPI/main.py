@@ -41,6 +41,7 @@ token = get_access_token()
 
 @app.route('/searchFood', methods=['POST'])
 def search_food():
+    print("search food")
     global food_items
     query = request.json['query']
     headers = {
@@ -166,9 +167,11 @@ def get_nutrients():
         return jsonify({"error": "Failed to fetch nutrients"}), 400
 
 
-@app.route('/searchRecipes', methods=['POST'])
-def search_recipes():
+@app.route('/searchRecipe', methods=['POST'])
+def search_recipe():
+    print("Search recipe called")
     query = request.json['query']
+    print("query: ", query)
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
@@ -183,6 +186,7 @@ def search_recipes():
     }
 
     response = requests.post(url, headers=headers, params=params)
+    list = []
 
     if response.status_code == 200:
         data = response.json()
@@ -190,7 +194,9 @@ def search_recipes():
         if recipes:
             first_recipe_id = recipes[0]["recipe_id"]
             recipe_details = fetch_recipe_details(first_recipe_id)
-            return jsonify({"recipe": recipe_details}), 200
+            list.append(recipe_details)
+            print(jsonify({"recipes": list}))
+            return jsonify({"recipes": list}), 200
         else:
             return jsonify({"error": "No recipes found"}), 400
     else:

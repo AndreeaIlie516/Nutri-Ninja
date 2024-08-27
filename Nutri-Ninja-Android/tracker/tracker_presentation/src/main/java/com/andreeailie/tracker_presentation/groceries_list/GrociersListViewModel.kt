@@ -77,6 +77,15 @@ class GroceryListViewModel @Inject constructor(
         }
     }
 
+    private fun clearGroceries() {
+        viewModelScope.launch {
+            groceryUseCases.getGroceries().firstOrNull()?.forEach { grocery ->
+                groceryUseCases.deleteGrocery(grocery)
+            }
+        }
+    }
+
+
     private fun refreshGroceries() {
         getGroceriesJob?.cancel()
         getGroceriesJob = groceryUseCases
@@ -92,27 +101,20 @@ class GroceryListViewModel @Inject constructor(
     private fun refreshFrequentGroceries() {
         Log.d("GroceryListViewModel", "refresh grocery")
         viewModelScope.launch {
-            // Define the date range (last 7 days)
             val lastWeekDates = (0..6).map { LocalDate.now().minusDays(it.toLong()) }
-
-            // Collect all foods tracked during the last week
             val foodItems = mutableListOf<TrackedFood>()
             for (date in lastWeekDates) {
                 val foodsForDate =
                     trackerUseCases.getFoodsForDate(date).firstOrNull() ?: emptyList()
                 foodItems.addAll(foodsForDate)
             }
-
             Log.d("GroceryListViewModel", "food items: $foodItems")
-
-            // Group the foods by name and calculate the frequency
             val groupedFoods = foodItems.groupBy { it.name }
             val sortedFoodItems = groupedFoods.entries
                 .sortedByDescending { it.value.sumOf { food -> food.quantity } }
                 .map { it.key }
 
             Log.d("GroceryListViewModel", "sorted food items: $sortedFoodItems")
-            // Set to avoid duplicate groceries
             val uniqueIngredients = mutableSetOf<Ingredient>()
 
             for (foodItem in sortedFoodItems) {
@@ -138,7 +140,7 @@ class GroceryListViewModel @Inject constructor(
                                 isChecked = false
                             )
                             Log.d("GroceryListViewModel", "grocery: $grocery")
-                            insertIfNotExists(grocery)
+                            insertOrUpdateGrocery(grocery)
                         }
                     }
                 }
@@ -148,12 +150,18 @@ class GroceryListViewModel @Inject constructor(
         }
     }
 
-
-    private fun insertIfNotExists(grocery: Grocery) {
+    private fun insertOrUpdateGrocery(grocery: Grocery) {
         viewModelScope.launch {
             val existingGrocery = groceryUseCases.getGroceries().firstOrNull()
-                ?.find { it.name == grocery.name }
-            if (existingGrocery == null) {
+                ?.find { it.name == grocery.name && it.unit == grocery.unit }
+
+            if (existingGrocery != null) {
+                val updatedGrocery = existingGrocery.copy(
+                    quantity = existingGrocery.quantity + grocery.quantity
+                )
+                Log.d("GroceryListViewModel", "grocery updated: $updatedGrocery")
+                groceryUseCases.addGrocery(updatedGrocery)
+            } else {
                 Log.d("GroceryListViewModel", "grocery added: $grocery")
                 groceryUseCases.addGrocery(grocery)
             }
@@ -161,27 +169,21 @@ class GroceryListViewModel @Inject constructor(
     }
 
     private fun extractQuantityAndUnit(description: String): Pair<Float, String> {
-        // Define a regular expression to match quantity and unit
         val regex = """^(\d+\/\d+|\d+(\.\d+)?|\d+ \d+\/\d+)\s(\w+)\b""".toRegex()
-
-        // Find the first match
         val matchResult = regex.find(description)
 
         return if (matchResult != null) {
-            // Extract quantity and unit from match groups
             val quantityString = matchResult.groupValues[1]
             val unit = matchResult.groupValues[3]
             val quantity = parseQuantity(quantityString)
             quantity to unit
         } else {
-            // Return default values if no match is found
-            1f to "unit" // Default values in case of failure to match
+            1f to "unit"
         }
     }
 
     private fun parseQuantity(quantityString: String): Float {
         return if (quantityString.contains("/")) {
-            // Handle fractions, e.g., "1/2"
             val parts = quantityString.split("/")
             if (parts.size == 2) {
                 val numerator = parts[0].toFloatOrNull() ?: return 1f
@@ -191,7 +193,6 @@ class GroceryListViewModel @Inject constructor(
                 1f
             }
         } else {
-            // Handle regular numbers, e.g., "1", "2.5"
             quantityString.toFloatOrNull() ?: 1f
         }
     }
