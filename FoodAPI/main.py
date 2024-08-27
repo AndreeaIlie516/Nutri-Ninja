@@ -85,12 +85,10 @@ def fetch_details(food_detail):
     food_name = item['food_name']
     food_id = item['food_id']
 
-    # Check if food_images exist and is not None
     image_url = None
     if item.get("food_images") and item["food_images"].get("food_image"):
         image_url = item["food_images"]["food_image"][0]["image_url"]
     else:
-        # Fallback to fetch image from Unsplash if food_images are not available
         image_url = fetch_image(food_name, headers_unsplash)
 
     nutriments = fetch_nutrients(food_id, headers)
